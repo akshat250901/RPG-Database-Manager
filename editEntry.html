@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/style.css" />
+        <title>Generic RPG Database: Edit Entry</title>
+    </head>
+
+    <body>
+        <div id="editAttributes">
+            <!-- input value attribute shows current value in database -->
+            <form class="attributes activeTable" id="pcEdit">
+                <fieldset>
+                    <label for="username">username</label>
+                    <input type="text" name="username" id="editUsername"><br>
+                    <label for="class">class</label>
+                    <input type="text" name="class" id="editClass"><br>
+                    <label for="charLevel">level</label>
+                    <input type="text" name="charLevel" id="editCharLevel"><br>
+                    <label for="health">health</label>
+                    <input type="text" name="health" id="editHealth"><br>
+                    <label for="energy">energy</label>
+                    <input type="text" name="energy" id="editEnergy"><br>
+                    <label for="attack">attack</label>
+                    <input type="text" name="attack" id="editAttack"><br>
+                    <label for="defense">defense</label>
+                    <input type="text" name="defense" id="editDefense"><br>
+                    <label for="speed">speed</label>
+                    <input type="text" name="speed" id="editSpeed"><br>
+                    <label for="pet">pet</label>
+                    <input type="text" name="pet" id="editPet"><br>
+                    <input type="submit" value="confirm">
+                </fieldset>
+            </form>
+            <!-- uses EquipmentName x EquipmentUser x EquipmentStatBoost x EquipmentType table -->
+            <form class="attributes" id="equipmentEdit">
+                <fieldset>
+                    <label for="equipName">name</label>
+                    <input type="text" name="equipName" id="editEquipName"><br>
+                    <label for="equipType">type</label>
+                    <input type="text" name="equipType" id="editEquipType"><br>
+                    <label for="rarity">rarity</label>
+                    <input type="text" name="rarity" id="editRarity"><br>
+                    <label for="affectedStat">affectedStat</label>
+                    <input type="text" name="affectedStat" id="editAffectedStat"><br>
+                    <label for="statBoost">statBoost</label>
+                    <input type="text" name="statBoost" id="editStatBoost"><br>
+                    <label for="usedBy">usedBy</label>
+                    <input type="text" name="usedBy" id="editUsedBy"><br>
+                    <input type="submit" value="confirm">
+                </fieldset>
+            </form>
+            <form class="attributes" id="questEdit">
+                <fieldset>
+                    <label for="questTitle">title</label>
+                    <input type="text" name="questTitle" id="editQuestTitle"><br>
+                    <label for="difficulty">difficulty</label>
+                    <input type="text" name="difficulty" id="editDifficulty"><br>
+                    <label for="reward">reward</label>
+                    <input type="text" name="reward" id="reward"><br>
+                    <label for="questLength">length</label>
+                    <input type="text" name="questLength" id="editQuestLength"><br>
+                    <label for="questMinLevel">minLevel</label>
+                    <input type="text" name="questMinLevel" id="editQuestMinLevel"><br>
+                    <label for="startNPC">startNPC</label>
+                    <input type="text" name="startNPC" id="editStartNPC"><br>
+                    <input type="submit" value="confirm">
+                </fieldset>
+            </form>
+            <form class="attributes" id="npcEdit">
+                <fieldset>
+                    <label for="npcName">name</label>
+                    <input type="text" name="npcName" id="editNpcName"><br>
+                    <label for="npcTitle">title</label>
+                    <input type="text" name="npcTitle" id="editNpcTitle"><br>
+                    <label for="npcVillage">village</label>
+                    <input type="text" name="npcVillage" id="editNpcVillage"><br>
+                    <input type="submit" value="confirm">
+                </fieldset>
+            </form>
+            <form class="attributes" id="villageEdit">
+                <fieldset>
+                    <label for="villageName">name</label>
+                    <input type="text" name="villageName" id="editVillageName"><br>
+                    <label for="region">region</label>
+                    <input type="text" name="region" id="editRegion"><br>
+                    <label for="population">population</label>
+                    <input type="text" name="population" id="editPopulation"><br>
+                    <label for="villageMinLevel">minLevel</label>
+                    <input type="text" name="villageMinLevel" id="editVillageMinLevel"><br>
+                    <input type="submit" value="confirm">
+                </fieldset>
+            </form>
+            <form class="attributes" id="monsterEdit">
+                <fieldset>
+                    <label for="monsName">name</label>
+                    <input type="text" name="monsName" id="editMonsName"><br>
+                    <label for="monsType">type</label>
+                    <input type="text" name="monsType" id="editMonsType"><br>
+                    <label for="monsLevel">level</label>
+                    <input type="text" name="monsLevel" id="editMonsLevel"><br>
+                    <label for="monsHealth">health</label>
+                    <input type="text" name="monsHealth" id="editMonsHealth"><br>
+                    <label for="monsAttack">attack</label>
+                    <input type="text" name="monsAttack" id="editMonsAttack"><br>
+                    <label for="monsDefense">defense</label>
+                    <input type="text" name="monsDefense" id="editMonsDefense"><br>
+                    <label for="defends">defends</label>
+                    <input type="text" name="defends" id="editDefends"><br>
+                    <input type="submit" value="confirm">
+                </fieldset>
+            </form>
+            <!-- based on DungeonName x DungeonMinLevelToDifficulty x DungeonRegion table -->
+            <form class="attributes" id="dungeonEdit">
+                <fieldset>
+                    <label for="dungName">name</label>
+                    <input type="text" name="dungName" id="editDungName"><br>
+                    <label for="dungDifficulty">difficulty</label>
+                    <input type="text" name="dungDifficulty" id="editDungDifficulty"><br>
+                    <label for="dungMinLevel">minLevel</label>
+                    <input type="text" name="dungMinLevel" id="editDungMinLevel"><br>
+                    <label for="dungRegion">region</label>
+                    <input type="text" name="dungRegion" id="editDungRegion"><br>
+                    <label for="charLevel">boss</label>
+                    <input type="text" name="boss" id="editBoss"><br>
+                    <input type="submit" value="confirm">
+                </fieldset>
+            </form>
+        </div>
+
+        <a href="index.html"" class="backButton buttons">back</a>
+    </body>
+</html>

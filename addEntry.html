@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/style.css" />
+        <title>Generic RPG Database: Add Entry</title>
+    </head>
+
+    <body>
+        <div id="addComponent" class="select">
+            <form>
+                <label for="addComponents">Component</label>
+                <select id="addComponents" name="addComponents">
+                    <option value="PlayableCharacter">PlayableCharacter</option>
+                    <option value="Equipment">Equipment</option>
+                    <option value="Quest">Quest</option>
+                    <option value="NPC">NPC</option>
+                    <option value="Village">Village</option>
+                    <option value="Monster">Monster</option>
+                    <option value="Dungeon">Dungeon</option>
+                  </select>
+              </form>
+        </div>
+
+        <div id="addAttributes">
+            <form class="attributes activeTable" id="pcAdd">
+                <fieldset>
+                    <label for="username">username</label>
+                    <input type="text" name="username" id="addUsername"><br>
+                    <label for="class">class</label>
+                    <input type="text" name="class" id="addClass"><br>
+                    <label for="charLevel">level</label>
+                    <input type="text" name="charLevel" id="addCharLevel"><br>
+                    <label for="health">health</label>
+                    <input type="text" name="health" id="addHealth"><br>
+                    <label for="energy">energy</label>
+                    <input type="text" name="energy" id="addEnergy"><br>
+                    <label for="attack">attack</label>
+                    <input type="text" name="attack" id="addAttack"><br>
+                    <label for="defense">defense</label>
+                    <input type="text" name="defense" id="addDefense"><br>
+                    <label for="speed">speed</label>
+                    <input type="text" name="speed" id="addSpeed"><br>
+                    <label for="pet">pet</label>
+                    <input type="text" name="pet" id="addPet"><br>
+                    <input type="submit" value="add entry">
+                </fieldset>
+            </form>
+            <!-- uses EquipmentName x EquipmentUser x EquipmentStatBoost x EquipmentType table -->
+            <form class="attributes" id="equipmentAdd">
+                <fieldset>
+                    <label for="equipName">name</label>
+                    <input type="text" name="equipName" id="addEquipName"><br>
+                    <label for="equipType">type</label>
+                    <input type="text" name="equipType" id="addEquipType"><br>
+                    <label for="rarity">rarity</label>
+                    <input type="text" name="rarity" id="addRarity"><br>
+                    <label for="affectedStat">affectedStat</label>
+                    <input type="text" name="affectedStat" id="addAffectedStat"><br>
+                    <label for="statBoost">statBoost</label>
+                    <input type="text" name="statBoost" id="addStatBoost"><br>
+                    <label for="usedBy">usedBy</label>
+                    <input type="text" name="usedBy" id="addUsedBy"><br>
+                    <input type="submit" value="add entry">
+                </fieldset>
+            </form>
+            <form class="attributes" id="questAdd">
+                <fieldset>
+                    <label for="questTitle">title</label>
+                    <input type="text" name="questTitle" id="addQuestTitle"><br>
+                    <label for="difficulty">difficulty</label>
+                    <input type="text" name="difficulty" id="addDifficulty"><br>
+                    <label for="reward">reward</label>
+                    <input type="text" name="reward" id="reward"><br>
+                    <label for="questLength">length</label>
+                    <input type="text" name="questLength" id="addQuestLength"><br>
+                    <label for="questMinLevel">minLevel</label>
+                    <input type="text" name="questMinLevel" id="addQuestMinLevel"><br>
+                    <label for="startNPC">startNPC</label>
+                    <input type="text" name="startNPC" id="addStartNPC"><br>
+                    <input type="submit" value="add entry">
+                </fieldset>
+            </form>
+            <form class="attributes" id="npcAdd">
+                <fieldset>
+                    <label for="npcName">name</label>
+                    <input type="text" name="npcName" id="addNpcName"><br>
+                    <label for="npcTitle">title</label>
+                    <input type="text" name="npcTitle" id="addNpcTitle"><br>
+                    <label for="npcVillage">village</label>
+                    <input type="text" name="npcVillage" id="addNpcVillage"><br>
+                    <input type="submit" value="add entry">
+                </fieldset>
+            </form>
+            <form class="attributes" id="villageAdd">
+                <fieldset>
+                    <label for="villageName">name</label>
+                    <input type="text" name="villageName" id="addVillageName"><br>
+                    <label for="region">region</label>
+                    <input type="text" name="region" id="addRegion"><br>
+                    <label for="population">population</label>
+                    <input type="text" name="population" id="addPopulation"><br>
+                    <label for="villageMinLevel">minLevel</label>
+                    <input type="text" name="villageMinLevel" id="addVillageMinLevel"><br>
+                    <input type="submit" value="add entry">
+                </fieldset>
+            </form>
+            <form class="attributes" id="monsterAdd">
+                <fieldset>
+                    <label for="monsName">name</label>
+                    <input type="text" name="monsName" id="addMonsName"><br>
+                    <label for="monsType">type</label>
+                    <input type="text" name="monsType" id="addMonsType"><br>
+                    <label for="monsLevel">level</label>
+                    <input type="text" name="monsLevel" id="addMonsLevel"><br>
+                    <label for="monsHealth">health</label>
+                    <input type="text" name="monsHealth" id="addMonsHealth"><br>
+                    <label for="monsAttack">attack</label>
+                    <input type="text" name="monsAttack" id="addMonsAttack"><br>
+                    <label for="monsDefense">defense</label>
+                    <input type="text" name="monsDefense" id="addMonsDefense"><br>
+                    <label for="defends">defends</label>
+                    <input type="text" name="defends" id="addDefends"><br>
+                    <input type="submit" value="add entry">
+                </fieldset>
+            </form>
+            <!-- based on DungeonName x DungeonMinLevelToDifficulty x DungeonRegion table -->
+            <form class="attributes" id="dungeonAdd">
+                <fieldset>
+                    <label for="dungName">name</label>
+                    <input type="text" name="dungName" id="addDungName"><br>
+                    <label for="dungDifficulty">difficulty</label>
+                    <input type="text" name="dungDifficulty" id="addDungDifficulty"><br>
+                    <label for="dungMinLevel">minLevel</label>
+                    <input type="text" name="dungMinLevel" id="addDungMinLevel"><br>
+                    <label for="dungRegion">region</label>
+                    <input type="text" name="dungRegion" id="addDungRegion"><br>
+                    <label for="charLevel">boss</label>
+                    <input type="text" name="boss" id="addBoss"><br>
+                    <input type="submit" value="add entry">
+                </fieldset>
+            </form>
+        </div>
+
+        <a href="index.html"" class="backButton buttons">back</a>
+    </body>
+</html>
