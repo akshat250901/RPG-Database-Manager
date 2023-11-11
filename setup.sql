@@ -1,52 +1,52 @@
 CREATE TABLE Village (
-    name VARCHAR(50) PRIMARY KEY,
-    region VARCHAR(50) NOT NULL,
+    name VARCHAR(20) PRIMARY KEY,
+    region VARCHAR(20) NOT NULL,
     population INTEGER NOT NULL,
     minLevel INTEGER NOT NULL
 );
 
 CREATE TABLE PetAbility(
-    species VARCHAR(50) PRIMARY KEY,
-    ability VARCHAR(50) NOT NULL
+    species VARCHAR(10) PRIMARY KEY,
+    ability VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE PetSpecies(
-    name VARCHAR(50) PRIMARY KEY,
-    species VARCHAR(50) NOT NULL,
+    name VARCHAR(15) PRIMARY KEY,
+    species VARCHAR(10) NOT NULL,
     FOREIGN KEY (species) REFERENCES PetAbility(species)
     ON DELETE CASCADE
 );
 
 CREATE TABLE PlayableCharacter(
-    username VARCHAR(50) PRIMARY KEY,
-    class VARCHAR(50) NOT NULL,
+    username VARCHAR(10) PRIMARY KEY,
+    class VARCHAR(15) NOT NULL,
     charLevel INTEGER NOT NULL,
     health INTEGER NOT NULL,
     energy INTEGER NOT NULL,
     attack INTEGER NOT NULL,
     defense INTEGER NOT NULL,
     speed INTEGER NOT NULL,
-    pet VARCHAR(50),
+    pet VARCHAR(15),
     FOREIGN KEY (pet) REFERENCES PetSpecies(name)
     ON DELETE SET NULL
 );
 
 CREATE TABLE EquipmentType(
-    type VARCHAR(50) PRIMARY KEY,
-    affectedStat VARCHAR(50) NOT NULL
+    type VARCHAR(10) PRIMARY KEY,
+    affectedStat VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE EquipmentName (
-    name VARCHAR(50) PRIMARY KEY,
-    rarity VARCHAR(50) NOT NULL,
-    type VARCHAR(50) NOT NULL,
+    name VARCHAR(15) PRIMARY KEY,
+    rarity VARCHAR(10) NOT NULL,
+    type VARCHAR(10) NOT NULL,
     FOREIGN KEY (type) REFERENCES EquipmentType(type)
     ON DELETE CASCADE
 );
 
 CREATE TABLE Sells (
-    village VARCHAR(50),
-    equipment VARCHAR(50),
+    village VARCHAR(20),
+    equipment VARCHAR(15),
     price INTEGER NOT NULL,
     PRIMARY KEY (village, equipment),
     FOREIGN KEY (village) REFERENCES Village(name)
@@ -56,8 +56,8 @@ CREATE TABLE Sells (
 );
 
 CREATE TABLE EquipmentUser (
-    name VARCHAR(50) PRIMARY KEY,
-    usedBy VARCHAR(50),
+    name VARCHAR(15) PRIMARY KEY,
+    usedBy VARCHAR(10),
     FOREIGN KEY (name) REFERENCES EquipmentName(name)
     ON DELETE CASCADE,
     FOREIGN KEY (usedBy) REFERENCES PlayableCharacter(username)
@@ -65,21 +65,21 @@ CREATE TABLE EquipmentUser (
 );
 
 CREATE TABLE EquipmentStatBoost (
-    name VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(15) PRIMARY KEY,
     statBoost INTEGER NOT NULL,
     FOREIGN KEY (name) REFERENCES EquipmentName(name)
     ON DELETE CASCADE
 );
 
 CREATE TABLE DungeonName(
-    name VARCHAR(50) PRIMARY KEY,
-    boss VARCHAR(50) NOT NULL,
+    name VARCHAR(30) PRIMARY KEY,
+    boss VARCHAR(25) NOT NULL,
     difficulty INTEGER NOT NULL
 );
 
 CREATE TABLE Contains(
-    equipment VARCHAR(50),
-    dungeon VARCHAR(50),
+    equipment VARCHAR(15),
+    dungeon VARCHAR(30),
     PRIMARY KEY (equipment, dungeon),
     FOREIGN KEY (equipment) REFERENCES EquipmentName(name)
     ON DELETE CASCADE,
@@ -93,7 +93,7 @@ CREATE TABLE DungeonMinLevelToDifficulty(
 );
 
 CREATE TABLE DungeonMinLevel(
-    name VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(30) PRIMARY KEY,
     minLevel INTEGER,
     FOREIGN KEY (name) REFERENCES DungeonName(name)
     ON DELETE CASCADE,
@@ -102,23 +102,23 @@ CREATE TABLE DungeonMinLevel(
 );
 
 CREATE TABLE DungeonRegion(
-    name VARCHAR(50) PRIMARY KEY,
-    region VARCHAR(50) NOT NULL,
+    name VARCHAR(30) PRIMARY KEY,
+    region VARCHAR(20) NOT NULL,
     FOREIGN KEY (name) REFERENCES DungeonName(name)
     ON DELETE CASCADE
 );
 
 CREATE TABLE NPC(
-    name VARCHAR(50) PRIMARY KEY,
-    title VARCHAR(50),
-    village VARCHAR(50),
+    name VARCHAR(10) PRIMARY KEY,
+    title VARCHAR(20),
+    village VARCHAR(20),
     FOREIGN KEY (village) REFERENCES Village(name)
     ON DELETE SET NULL
 );
 
 CREATE TABLE Interacts(
-    npc VARCHAR(50),
-    playableCharacter VARCHAR(50),
+    npc VARCHAR(10),
+    playableCharacter VARCHAR(10),
     PRIMARY KEY (npc, playableCharacter),
     FOREIGN KEY (npc) REFERENCES NPC(name)
     ON DELETE CASCADE,
@@ -127,20 +127,20 @@ CREATE TABLE Interacts(
 );
 
 CREATE TABLE Quest(
-    title VARCHAR(50) PRIMARY KEY,
+    title VARCHAR(25) PRIMARY KEY,
     difficulty INTEGER NOT NULL,
     reward INTEGER NOT NULL,
     length INTEGER NOT NULL,
     minLevel INTEGER NOT NULL,
-    startNPC VARCHAR(50),
+    startNPC VARCHAR(10),
     FOREIGN KEY (startNPC) REFERENCES NPC(name)
     ON DELETE CASCADE
 );
 
 CREATE TABLE WorksOn(
-    quest VARCHAR(50),
-    npc VARCHAR(50),
-    playableCharacter VARCHAR(50),
+    quest VARCHAR(25),
+    npc VARCHAR(10),
+    playableCharacter VARCHAR(10),
     PRIMARY KEY (quest, npc, playableCharacter),
     FOREIGN KEY (quest) REFERENCES Quest(title)
     ON DELETE CASCADE,
@@ -151,8 +151,8 @@ CREATE TABLE WorksOn(
 );
 
 CREATE TABLE PetOwner(
-    name VARCHAR(50) PRIMARY KEY,
-    owner VARCHAR(50),
+    name VARCHAR(10) PRIMARY KEY,
+    owner VARCHAR(10),
     FOREIGN KEY (name) REFERENCES PetSpecies(name)
     ON DELETE CASCADE,
     FOREIGN KEY (owner) REFERENCES PlayableCharacter(username)
@@ -160,7 +160,7 @@ CREATE TABLE PetOwner(
 );
 
 CREATE TABLE PetLevel(
-    species VARCHAR(50),
+    species VARCHAR(10),
     abilityCooldown INTEGER,
     pLevel INTEGER NOT NULL,
     PRIMARY KEY (species, abilityCooldown),
@@ -169,20 +169,20 @@ CREATE TABLE PetLevel(
 );
 
 CREATE TABLE Monster(
-    name VARCHAR(50) PRIMARY KEY,
-    type VARCHAR(50) NOT NULL,
+    name VARCHAR(25) PRIMARY KEY,
+    type VARCHAR(15) NOT NULL,
     monsLevel INTEGER NOT NULL,
     health INTEGER NOT NULL,
     attack INTEGER NOT NULL,
     defense INTEGER NOT NULL,
-    defends VARCHAR(50),
+    defends VARCHAR(30),
     FOREIGN KEY (defends) REFERENCES DungeonName(name)
     ON DELETE SET NULL
 );
 
 CREATE TABLE Fights(
-    playableCharacter VARCHAR(50),
-    monster VARCHAR(50),
+    playableCharacter VARCHAR(10),
+    monster VARCHAR(25),
     PRIMARY KEY (playableCharacter, monster),
     FOREIGN KEY (playableCharacter) REFERENCES PlayableCharacter(username)
     ON DELETE CASCADE,
@@ -191,15 +191,15 @@ CREATE TABLE Fights(
 );
 
 CREATE TABLE Boss(
-    name VARCHAR(50) PRIMARY KEY,
-    ability VARCHAR(50) UNIQUE,
+    name VARCHAR(25) PRIMARY KEY,
+    ability VARCHAR(20) UNIQUE,
     FOREIGN KEY (name) REFERENCES Monster(name)
     ON DELETE CASCADE
 );
 
 CREATE TABLE Neutral(
-    name VARCHAR(50) PRIMARY KEY,
-    triggeredBy VARCHAR(50) NOT NULL,
+    name VARCHAR(25) PRIMARY KEY,
+    triggeredBy VARCHAR(15) NOT NULL,
     FOREIGN KEY (name) REFERENCES Monster(name)
     ON DELETE CASCADE
 );
