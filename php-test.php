@@ -15,14 +15,14 @@
   Apache server can run it, and you must rename it to have a ".php"
   extension.  You must also change the username and password on the
   OCILogon below to be your ORACLE username and password -->
-
+  <!doctype html>
   <html>
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="css/style.css" />
-        <title>CPSC 304 PHP/Oracle Demonstration</title>
+        <style><?php include 'css/style.css'; ?></style>
+        <title>Generic RPG Database: Add Entry</title>
     </head>
 
     <body>
@@ -197,18 +197,37 @@
 
         function handleResetRequest() {
             global $db_conn;
-            // Drop old table
-            executePlainSQL("DROP TABLE Village");
+            // Drop old data
 
-            // Create new table
-            echo "<br> creating new table <br>";
-            executePlainSQL("CREATE TABLE Village (
-                name VARCHAR(25) PRIMARY KEY,
-                region VARCHAR(25) NOT NULL,
-                population INTEGER NOT NULL,
-                minLevel INTEGER NOT NULL
-            )");
+            $clear = file_get_contents('clear.sql');
+            $sqlRows=explode(";",$clear);
+            $lenClear = count($sqlRows);
+            for ($x = 0; $x < $lenClear; $x++) {
+                executePlainSQL($sqlRows[$x]);
+              }
+
+
+
+            //run create SQL file
+            $myfile = file_get_contents('create.sql');
+            $sqlRows=explode(";",$myfile);
+            $len = count($sqlRows);
+            for ($x = 0; $x < $len; $x++) {
+                executePlainSQL($sqlRows[$x]);
+              }
+            
+            //run insert SQL file
+            $insertFile = file_get_contents('insert.sql');
+            $sqlRows=explode(";\n",$insertFile);
+            $len = count($sqlRows);
+            for ($x = 0; $x < $len; $x++) {
+                executePlainSQL($sqlRows[$x]);
+              }
+
+                
+            
             OCICommit($db_conn);
+
         }
 
         function handleInsertRequest() {
@@ -234,9 +253,14 @@
             global $db_conn;
 
             $result = executePlainSQL("SELECT Count(*) FROM Village");
+            $petAbilityCount = executePlainSQL("SELECT Count(*) FROM PetAbility");
 
             if (($row = oci_fetch_row($result)) != false) {
                 echo "<br> The number of tuples in Village: " . $row[0] . "<br>";
+            }
+
+            if (($row = oci_fetch_row($petAbilityCount)) != false) {
+                echo "<br> The number of tuples in PetAbility: " . $row[0] . "<br>";
             }
         }
 
