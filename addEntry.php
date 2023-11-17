@@ -18,16 +18,6 @@
                   </select>
               </form>
         </div>
-        <div>
-            <h2>Setup</h2>
-            <p>This button is for setting up the tables</p>
-            <form method="POST" action="addEntry.php" >
-                <input type="hidden" id="setupTablesRequest" name="setupTablesRequest">
-                <p><input type="submit" value="Setup" name="setup" class="buttons"></p>
-            </form>
-        </div>
-
-
 
         <div id="addAttributes">
             <h2>Insert Values into Monster</h2>
@@ -41,7 +31,7 @@
             Defense: <input type="text" name="monsDefense"> <br /><br />
             Defends: <input type="text" name="defends"> <br /><br />
 
-            <input type="submit" value="Insert" name="insertSubmit"></p>
+            <input type="submit" value="Add Monster" name="insertSubmit"></p>
             </form>
 
 
@@ -51,7 +41,7 @@
             <input type="submit" name="countTuples" class="buttons" value="Count"></p>
         </form>
 
-        <!-- <a href="index.html" class="backButton">back</a>*/-->
+        <a href="index.html" class="backButton">back</a>
 
 
         <?php
@@ -123,29 +113,14 @@
                 $r = OCIExecute($statement, OCI_DEFAULT);
 
                 if (!$r) {
-                    echo "Sorry, an error occurred";
-                    // echo "<br>Cannot execute the following command: " . $cmdstr . "<br>";
-                    // $e = OCI_Error($statement); // For OCIExecute errors, pass the statementhandle
-                    // echo htmlentities($e['message']);
-                    // echo "<br>";
+                    echo "Sorry, an error occurred. Double check that your values' types match the attributes, and if you include a Dungeon then it must exist!";
                     $success = False;
                 } else {
-                    echo "Success!";
+                    echo "Success, new Monster added!";
                 }
             }
         }
 
-        function printResult($result) { //prints results from a select statement
-            echo "<br>Retrieved data from table Village:<br>";
-            echo "<table>";
-            echo "<tr><th>ID</th><th>Name</th></tr>";
-
-            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<tr><td>" . $row["ID"] . "</td><td>" . $row["NAME"] . "</td></tr>"; //or just use "echo $row[0]"
-            }
-
-            echo "</table>";
-        }
 
         function connectToDB() {
             global $db_conn;
@@ -171,18 +146,7 @@
             debugAlertMessage("Disconnect from Database");
             OCILogoff($db_conn);
         }
-
-        function handleUpdateRequest() {
-            global $db_conn;
-
-            $old_name = $_POST['oldName'];
-            $new_name = $_POST['newName'];
-
-            // you need the wrap the old name and new name values with single quotations
-            executePlainSQL("UPDATE Village SET name='" . $new_name . "' WHERE name='" . $old_name . "'");
-            OCICommit($db_conn);
-        }
-
+    
         function handleSetupRequest() {
             global $db_conn;
             // Drop old data
@@ -232,18 +196,6 @@
             if (($row = oci_fetch_row($result)) != false) {
                 echo "<br> The number of tuples in Monster: " . $row[0] . "<br>";
             }
-        }
-
-        function handlePopulateRequest() {
-            global $db_conn;
-            //run insert SQL file
-            $insertFile = file_get_contents('insert.sql');
-            $sqlRows=explode(";\n",$insertFile);
-            $len = count($sqlRows);
-            for ($x = 0; $x < $len; $x++) {
-                executePlainSQL($sqlRows[$x]);
-              }
-            OCICommit($db_conn);
         }
 
         // HANDLE ALL POST ROUTES
