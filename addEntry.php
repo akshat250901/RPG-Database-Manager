@@ -15,12 +15,6 @@
                 <label for="addComponents">Component</label>
                 <select id="addComponents" name="addComponents">
                     <option value="Monster">Monster</option>
-                    <option value="PlayableCharacter">PlayableCharacter</option>
-                    <option value="Equipment">Equipment</option>
-                    <option value="Quest">Quest</option>
-                    <option value="NPC">NPC</option>
-                    <option value="Village">Village</option>
-                    <option value="Dungeon">Dungeon</option>
                   </select>
               </form>
         </div>
