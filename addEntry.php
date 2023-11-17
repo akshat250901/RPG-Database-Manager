@@ -57,7 +57,7 @@
             <input type="submit" name="countTuples" class="buttons" value="Count"></p>
         </form>
 
-        <a href="index.html" class="backButton">back</a>
+        <!-- <a href="index.html" class="backButton">back</a>*/-->
 
 
         <?php
