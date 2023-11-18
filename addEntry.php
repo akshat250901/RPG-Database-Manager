@@ -204,14 +204,9 @@
             if (connectToDB()) {
                 if (array_key_exists('setupTablesRequest', $_POST)) {
                     handleSetupRequest();
-                } else if (array_key_exists('updateQueryRequest', $_POST)) {
-                    handleUpdateRequest();
                 } else if (array_key_exists('insertQueryRequest', $_POST)) {
                     handleInsertRequest();
-                } else if (array_key_exists('populateTablesRequest', $_POST)) {
-                    handlePopulateRequest();
-                }
-
+                } 
                 disconnectFromDB();
             }
         }
