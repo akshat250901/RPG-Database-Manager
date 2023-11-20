@@ -20,15 +20,9 @@
         </div>
 
         <div>
-            <h2>Reset</h2>
-            <p>If you wish to reset the tables press on the reset button</p>
-
-            <form method="POST" action="addDeleteEntry.php" class="attribute">
-                <input type="hidden" id="resetTablesRequest" name="resetTablesRequest">
-                <p><input type="submit" value="Reset" name="reset"></p>
             <h2>Setup</h2>
             <p>This button is for setting up the tables</p>
-            <form method="POST" action="addEntry.php" >
+            <form method="POST" action="addDeleteEntry.php" >
                 <input type="hidden" id="setupTablesRequest" name="setupTablesRequest">
                 <p><input type="submit" value="Setup" name="setup" class="buttons"></p>
             </form>
