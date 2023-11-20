@@ -29,7 +29,6 @@ body {
 
 .attributes {
   margin-bottom: 20px;
-  display: none;
 }
 
 .attributes fieldset {
@@ -40,10 +39,6 @@ body {
   border: solid white 1px;
   padding-left: 20px;
   width: flex;
-}
-
-#active {
-  display: block;
 }
 
 /* Show the PC Attributes by default */
@@ -104,18 +99,18 @@ body {
   margin-bottom: 20px;
 }
 
-  .attribute input[type="text"] {
-    border: 1px solid #000;
-    padding: 5px;
-  }
-  
-  .attribute input[type="submit"] {
-    display: inline-block;
-    background-color: #2980b9;
-    color: #ecf0f1;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 4px;
-    margin-top: 20px;
-    text-align: center;
-  }
+.attribute input[type="text"] {
+  border: 1px solid #000;
+  padding: 5px;
+}
+
+.attribute input[type="submit"] {
+  display: inline-block;
+  background-color: #2980b9;
+  color: #ecf0f1;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 20px;
+  text-align: center;
+}

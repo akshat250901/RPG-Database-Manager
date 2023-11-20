@@ -20,180 +20,10 @@
             <p><input type="submit" value="Reset Database" name="reset" class="buttons"></p>
         </form>
 
-        <div id="selectComponent" class="select">
-            <form method="post" action="index.php">
-                <label for="component">Component</label>
-                <select id="component" name="component">
-                    <option value="PlayableCharacter">PlayableCharacter</option>
-                    <option value="Equipment">Equipment</option>
-                    <option value="Quest">Quest</option>
-                    <option value="NPC">NPC</option>
-                    <option value="Village">Village</option>
-                    <option value="Monster">Monster</option>
-                    <option value="Dungeon">Dungeon</option>
-                </select>
-                <input type="submit" name="selectComponent" value="Select Component" class="buttons">
-            </form>
-        </div>
+        <div id="selectComponent" class="select"></div>
 
-        <div id="selectAttributes">
-            <h3>Filters</h3>
-            <form method="post" action="index.php" class="attributes" 
-                <?php 
-                    if ((array_key_exists('component', $_POST) && $_POST['component'] === 'PlayableCharacter') ||
-                        (array_key_exists('attribute', $_POST) && $_POST['attribute'][0] === 'PlayableCharacter')) 
-                    echo 'id="active"'; ?>>
-                <fieldset>
-                    <input type="hidden" name="attribute[]" value="PlayableCharacter">
-                    <input type="checkbox" name="attribute[]" value="username">
-                    <label for="username">username</label>
-                    <input type="checkbox" name="attribute[]" value="class">
-                    <label for="class">class</label>
-                    <input type="checkbox" name="attribute[]" value="charLevel">
-                    <label for="charLevel">level</label>
-                    <input type="checkbox" name="attribute[]" value="health">
-                    <label for="health">health</label>
-                    <input type="checkbox" name="attribute[]" value="energy">
-                    <label for="energy">energy</label>
-                    <input type="checkbox" name="attribute[]" value="attack">
-                    <label for="attack">attack</label>
-                    <input type="checkbox" name="attribute[]" value="defense">
-                    <label for="defense">defense</label>
-                    <input type="checkbox" name="attribute[]" value="speed">
-                    <label for="speed">speed</label>
-                    <input type="checkbox" name="attribute[]" value="pet">
-                    <label for="pet">pet</label>
-                    <input type="submit" name="setFilters" value="Set Filters">
-                </fieldset>
-            </form>
-            <!-- uses EquipmentName x EquipmentUser x EquipmentStatBoost x EquipmentType table -->
-            <form method="post" action="index.php" class="attributes" 
-                <?php 
-                    if ((array_key_exists('component', $_POST) && $_POST['component'] === 'Equipment') ||
-                        (array_key_exists('attribute', $_POST) && $_POST['attribute'][0] === 'Equipment')) 
-                    echo 'id="active"'; ?>>
-                <fieldset>
-                    <input type="hidden" name="attribute[]" value="Equipment">
-                    <input type="checkbox" name="attribute[]" value="name">
-                    <label for="name">name</label>
-                    <input type="checkbox" name="attribute[]" value="rarity">
-                    <label for="rarity">rarity</label>
-                    <input type="checkbox" name="attribute[]" value="type">
-                    <label for="type">type</label>
-                    <input type="checkbox" name="attribute[]" value="affectedStat">
-                    <label for="affectedStat">affectedStat</label>
-                    <input type="checkbox" name="attribute[]" value="statBoost">
-                    <label for="statBoost">statBoost</label>
-                    <input type="checkbox" name="attribute[]" value="usedBy">
-                    <label for="usedBy">usedBy</label>
-                    <input type="submit" name="setFilters" value="Set Filters">
-                </fieldset>
-            </form>
-            <form method="post" action="index.php" class="attributes" 
-                <?php 
-                    if ((array_key_exists('component', $_POST) && $_POST['component'] === 'Quest') ||
-                        (array_key_exists('attribute', $_POST) && $_POST['attribute'][0] === 'Quest')) 
-                    echo 'id="active"'; ?>>
-                <fieldset>
-                    <input type="hidden" name="attribute[]" value="Quest">
-                    <input type="checkbox" name="attribute[]" value="title">
-                    <label for="title">title</label>
-                    <input type="checkbox" name="attribute[]" value="difficulty">
-                    <label for="difficulty">difficulty</label>
-                    <input type="checkbox" name="attribute[]" value="reward">
-                    <label for="reward">reward</label>
-                    <input type="checkbox" name="attribute[]" value="length">
-                    <label for="length">length</label>
-                    <input type="checkbox" name="attribute[]" value="minLevel">
-                    <label for="minLevel">minLevel</label>
-                    <input type="checkbox" name="attribute[]" value="startNPC">
-                    <label for="startNPC">startNPC</label>
-                    <input type="submit" name="setFilters" value="Set Filters">
-                </fieldset>
-            </form>
-            <form method="post" action="index.php" class="attributes" 
-                <?php 
-                    if ((array_key_exists('component', $_POST) && $_POST['component'] === 'NPC') ||
-                        (array_key_exists('attribute', $_POST) && $_POST['attribute'][0] === 'NPC'))
-                    echo 'id="active"'; ?>>
-                <fieldset>
-                    <input type="hidden" name="attribute[]" value="NPC">
-                    <input type="checkbox" name="attribute[]" value="name">
-                    <label for="name">name</label>
-                    <input type="checkbox" name="attribute[]" value="title">
-                    <label for="title">title</label>
-                    <input type="checkbox" name="attribute[]" value="village">
-                    <label for="village">village</label>
-                    <input type="submit" name="setFilters" value="Set Filters">
-                </fieldset>
-            </form>
-            <form method="post" action="index.php" class="attributes" 
-                <?php 
-                    if ((array_key_exists('component', $_POST) && $_POST['component'] === 'Village') ||
-                        (array_key_exists('attribute', $_POST) && $_POST['attribute'][0] === 'Village')) 
-                    echo 'id="active"'; ?>>
-                <fieldset>
-                    <input type="hidden" name="attribute[]" value="Village">
-                    <input type="checkbox" name="attribute[]" value="name" id="name">
-                    <label for="name">name</label>
-                    <input type="checkbox" name="attribute[]" value="region" id="region">
-                    <label for="region">region</label>
-                    <input type="checkbox" name="attribute[]" value="population" id="population">
-                    <label for="population">population</label>
-                    <input type="checkbox" name="attribute[]" value="minLevel" id="minLevel">
-                    <label for="minLevel">minLevel</label>
-                    <input type="submit" name="setFilters" value="Set Filters">
-                </fieldset>
-            </form>
-            <form method="post" action="index.php" class="attributes" 
-                <?php 
-                    if ((array_key_exists('component', $_POST) && $_POST['component'] === 'Monster') ||
-                        (array_key_exists('attribute', $_POST) && $_POST['attribute'][0] === 'Monster'))
-                    echo 'id="active"'; ?>>
-                <fieldset>
-                    <input type="hidden" name="attribute[]" value="Monster">
-                    <input type="checkbox" name="attribute[]" value="name">
-                    <label for="name">name</label>
-                    <input type="checkbox" name="attribute[]" value="type">
-                    <label for="type">type</label>
-                    <input type="checkbox" name="attribute[]" value="monsLevel">
-                    <label for="monsLevel">level</label>
-                    <input type="checkbox" name="attribute[]" value="health">
-                    <label for="health">health</label>
-                    <input type="checkbox" name="attribute[]" value="attack">
-                    <label for="attack">attack</label>
-                    <input type="checkbox" name="attribute[]" value="defense">
-                    <label for="defense">defense</label>
-                    <input type="checkbox" name="attribute[]" value="defends">
-                    <label for="defends">defends</label>
-                    <input type="submit" name="setFilters" value="Set Filters">
-                </fieldset>
-            </form>
-            <!-- uses DungeonName x DungeonMinLevelToDifficulty x DungeonRegion table -->
-            <form method="post" action="index.php" class="attributes" 
-                <?php 
-                    if ((array_key_exists('component', $_POST) && $_POST['component'] === 'Dungeon') ||
-                        (array_key_exists('attribute', $_POST) && $_POST['attribute'][0] === 'Dungeon'))
-                    echo 'id="active"'; ?>>
-                <fieldset>
-                    <input type="hidden" name="attribute[]" value="Dungeon">
-                    <input type="checkbox" name="attribute[]" value="name">
-                    <label for="name">name</label>
-                    <input type="checkbox" name="attribute[]" value="difficulty">
-                    <label for="difficulty">difficulty</label>
-                    <input type="checkbox" name="attribute[]" value="region">
-                    <label for="region">region</label>
-                    <input type="checkbox" name="attribute[]" value="minLevel">
-                    <label for="minLevel">minLevel</label>
-                    <input type="checkbox" name="attribute[]" value="boss">
-                    <label for="boss">boss</label>
-                    <input type="submit" name="setFilters" value="Set Filters">
-                </fieldset>
-            </form>
-        </div>
+        <div id="selectAttributes"></div>
 
-        <!-- Tuples are shown here as individual elements -->
-        <!-- list all attributes sequentially in order shown in attributes, then show edit and delete buttons -->
         <div id="tuplesTable"></div>
 
         <a href="addEntry.php" id="addButton" class="buttons">add entry</a>
@@ -228,6 +58,46 @@
             }
             echo "</div>";
             echo "<script type=\"text/JavaScript\">document.getElementById('tuplesTable').appendChild(document.getElementById('table'));</script>";
+        }
+
+        function createComponentsDropdown() {
+            echo "<form method=\"post\" action=\"index.php\" id=\"dropdown\">";
+            echo "<label for=\"component\">Component</label>";
+            echo "<select id=\"component\" name=\"component\">";
+
+            // get all existing tables
+            $result = executePlainSQL("SELECT table_name FROM user_tables");
+            while ($row = oci_fetch_array($result)) {
+                echo "<option value=\"" . $row['TABLE_NAME'] . "\">" . $row['TABLE_NAME'] . "</option>";
+            }
+
+            echo "</select>";
+            echo "<input type=\"submit\" name=\"selectComponent\" value=\"Select Component\" class=\"buttons\">";
+            echo "</form>";
+
+            echo "<script type=\"text/JavaScript\">document.getElementById('selectComponent').appendChild(document.getElementById('dropdown'));</script>";
+        }
+
+        function createAttributes($component) {
+            echo "<div id=\"attributesForm\">";
+            echo "<h3>Filters</h3>";
+            echo "<form method=\"post\" action=\"index.php\" class=\"attributes\">";
+            echo "<fieldset>";
+            echo "<input type=\"hidden\" name=\"attribute[]\" value=\"" . $component . "\">";
+
+            // get all attributes for component
+            $result = executePlainSQL("SELECT column_name FROM USER_TAB_COLUMNS WHERE table_name = '" . $component . "'");
+            while ($row = oci_fetch_array($result)) {
+                echo "<input type=\"checkbox\" name=\"attribute[]\" value=\"" . $row['COLUMN_NAME'] . "\">";
+                echo "<label for=\"" . $row['COLUMN_NAME'] . "\">" . $row['COLUMN_NAME'] . "</label>";
+            }
+
+            echo "<input type=\"submit\" name=\"setFilters\" value=\"Set Filters\">";
+            echo "</fieldset>";
+            echo "</form>";
+            echo "</div>";
+
+            echo "<script type=\"text/JavaScript\">document.getElementById('selectAttributes').appendChild(document.getElementById('attributesForm'));</script>";
         }
 
         function debugAlertMessage($message) {
@@ -297,18 +167,6 @@
             }
         }
 
-        function printResult($result) { // prints results from a select statement
-            echo "<br>Retrieved data from table Village:<br>";
-            echo "<table>";
-            echo "<tr><th>ID</th><th>Name</th></tr>";
-
-            while ($row = OCI_Fetch_Array($result, OCI_BOTH)) {
-                echo "<tr><td>" . $row["ID"] . "</td><td>" . $row["NAME"] . "</td></tr>"; //or just use "echo $row[0]"
-            }
-
-            echo "</table>";
-        }
-
         function connectToDB() {
             global $db_conn;
 
@@ -356,20 +214,9 @@
         }
 
         function handleGetComponent($component) {
-            if ($component === 'Equipment') {
-                // uses EquipmentName x EquipmentUser x EquipmentStatBoost x EquipmentType
-                $result = executePlainSQL("SELECT n.name, n.rarity, n.type, t.affectedStat, s.statBoost, u.usedBy " . 
-                    "FROM EquipmentName n, EquipmentUser u, EquipmentStatBoost s, EquipmentType t " .
-                    "WHERE n.name = u.name AND n.name = s.name AND n.type = t.type");
-            } else if ($component === 'Dungeon') {
-                // uses DungeonName x DungeonMinLevelToDifficulty x DungeonRegion
-                $result = executePlainSQL("SELECT n.name, n.difficulty, r.region, m.minLevel, n.boss " . 
-                    "FROM DungeonName n, DungeonMinLevelToDifficulty l, DungeonMinLevel m, DungeonRegion r " .
-                    "WHERE n.name = r.name AND n.name = m.name AND m.minLevel = l.minLevel");
-            } else {
-                $result = executePlainSQL("SELECT * FROM " . $component);
-            }
+            $result = executePlainSQL("SELECT * FROM " . $component);
 
+            createAttributes($component);
             createTuplesTable($component, $result);
         }
 
@@ -383,72 +230,13 @@
                 return;
             }
             
-            $filter = "";
-            if ($component === 'Equipment') {
-                for ($i = 1; $i < $size; $i++) {
-                    if ($i > 1) $filter .= ", ";
-                    switch ($attributes[$i]) {
-                        case "name":
-                            $filter .= "n.name";
-                            break;
-                        case "rarity":
-                            $filter .= "n.rarity";
-                            break;
-                        case "type":
-                            $filter .= "n.type";
-                            break;
-                        case "affectedStat":
-                            $filter .= "t.affectedStat";
-                            break;
-                        case "statBoost":
-                            $filter .= "s.statBoost";
-                            break;
-                        case "usedBy":
-                            $filter .= "u.usedBy";
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                // uses EquipmentName x EquipmentUser x EquipmentStatBoost x EquipmentType
-                $result = executePlainSQL("SELECT " . $filter . " " .
-                    "FROM EquipmentName n, EquipmentUser u, EquipmentStatBoost s, EquipmentType t " .
-                    "WHERE n.name = u.name AND n.name = s.name AND n.type = t.type");
-            } else if ($component === 'Dungeon') {
-                for ($i = 1; $i < $size; $i++) {
-                    if ($i > 1) $filter .= ", ";
-                    switch ($attributes[$i]) {
-                        case "name":
-                            $filter .= "n.name";
-                            break;
-                        case "difficulty":
-                            $filter .= "n.difficulty";
-                            break;
-                        case "region":
-                            $filter .= "r.region";
-                            break;
-                        case "minLevel":
-                            $filter .= "m.minLevel";
-                            break;
-                        case "boss":
-                            $filter .= "n.boss";
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                // uses DungeonName x DungeonMinLevelToDifficulty x DungeonRegion
-                $result = executePlainSQL("SELECT " . $filter . " " .
-                    "FROM DungeonName n, DungeonMinLevelToDifficulty l, DungeonMinLevel m, DungeonRegion r " .
-                    "WHERE n.name = r.name AND n.name = m.name AND m.minLevel = l.minLevel");
-            } else {
-                $filter = $attributes[1];
-                for ($i = 2; $i < $size; $i++) {
-                    $filter .= ", " . $attributes[$i];
-                }
-                $result = executePlainSQL("SELECT " . $filter . " FROM " . $component);
+            $filter = $attributes[1];
+            for ($i = 2; $i < $size; $i++) {
+                $filter .= ", " . $attributes[$i];
             }
+            $result = executePlainSQL("SELECT DISTINCT " . $filter . " FROM " . $component);
 
+            createAttributes($component);
             createTuplesTable($component, $result);
         }
 
@@ -479,7 +267,9 @@
         //         disconnectFromDB();
         //     }
         // }
-
+        connectToDB();
+        createComponentsDropdown();
+        disconnectFromDB();
 		if (isset($_POST['resetTables'])|| isset($_POST['selectComponent']) || isset($_POST['setFilters'])) {
             handlePOSTRequest();
         } 
