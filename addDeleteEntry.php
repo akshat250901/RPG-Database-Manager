@@ -23,7 +23,7 @@
             <h2>Reset</h2>
             <p>If you wish to reset the tables press on the reset button</p>
 
-            <form method="POST" action="addEntry.php" class="attribute">
+            <form method="POST" action="addDeleteEntry.php" class="attribute">
                 <input type="hidden" id="resetTablesRequest" name="resetTablesRequest">
                 <p><input type="submit" value="Reset" name="reset"></p>
             <h2>Setup</h2>
@@ -36,7 +36,7 @@
 
         <div id="addAttributes">
             <h2>Insert Values into Monster</h2>
-            <form method="POST" action="addEntry.php" class="attribute" id="mosAttributes"> <!--refresh page when submitted-->
+            <form method="POST" action="addDeleteEntry.php" class="attribute" id="mosAttributes"> <!--refresh page when submitted-->
             <input type="hidden" id="insertQueryRequest" name="insertQueryRequest">
             Name: <input type="text" name="monsName"> <br /><br />
             Type: <input type="text" name="monsType"> <br /><br />
@@ -52,7 +52,7 @@
 
         <div id="deleteAttributes">
             <h2>Delete Monster</h2>
-            <form method="POST" action="addEntry.php" class="attribute" id="monsAttributes"> <!--refresh page when submitted-->
+            <form method="POST" action="addDeleteEntry.php" class="attribute" id="monsAttributes"> <!--refresh page when submitted-->
             <input type="hidden" id="deleteQueryRequest" name="deleteQueryRequest">
             Name: <input type="text" name="monsName"> <br /><br />
 
@@ -61,7 +61,7 @@
 
 
             <h2>Count the Tuples in Monster</h2>
-            <form method="GET" action="addEntry.php"> <!--refresh page when submitted-->
+            <form method="GET" action="addDeleteEntry.php"> <!--refresh page when submitted-->
                 <input type="hidden" id="countTupleRequest" name="countTupleRequest">
                 <input type="submit" name="countTuples" class="buttons" value="Count"></p>
             </form>
@@ -216,12 +216,34 @@
         function handleDeleteRequest() {
             global $db_conn;
 
+            $count_result = executePlainSQL("SELECT Count(*) FROM Monster");
+
+            if (($row = oci_fetch_row($count_result)) != false) {
+                $count = $row[0];
+                //echo $count;
+            }
+           
             //Getting the values from user and insert data into the table
             $tuple = $_POST['monsName'];
-            //echo $tuple;
 
-            $result = executePlainSQL("DELETE FROM Monster WHERE name = '$tuple'");
-            ($db_conn);
+            executePlainSQL("DELETE FROM Monster WHERE name = '$tuple'");
+
+            
+            $count_result = executePlainSQL("SELECT Count(*) FROM Monster");
+
+            if (($row = oci_fetch_row($count_result)) != false) {
+                $n_count = $row[0];
+            }
+
+            if ($count>$n_count) {
+                echo 'monster successfully deleted';
+                //echo $count;
+            } else {
+                echo 'Error deleting monster. Double check that the monster name matches an existing monster ';
+                //echo $count;
+            }
+
+            OCICommit($db_conn);
         }
 
         function handleCountRequest() {
