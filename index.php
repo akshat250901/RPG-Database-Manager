@@ -403,7 +403,7 @@
                         case "statBoost":
                             $filter .= "s.statBoost";
                             break;
-                        case "usedBy": // CHECK SQLPLUS WITH BELOW QUERY TO SEE WHAT IT ACTUALLY RETURNS
+                        case "usedBy":
                             $filter .= "u.usedBy";
                             break;
                         default:
