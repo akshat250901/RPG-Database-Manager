@@ -19,9 +19,18 @@
               </form>
         </div>
 
+        <div>
+            <h2>Setup</h2>
+            <p>This button is for setting up the tables</p>
+            <form method="POST" action="addDeleteEntry.php" >
+                <input type="hidden" id="setupTablesRequest" name="setupTablesRequest">
+                <p><input type="submit" value="Setup" name="setup" class="buttons"></p>
+            </form>
+        </div>
+
         <div id="addAttributes">
             <h2>Insert Values into Monster</h2>
-            <form method="POST" action="addEntry.php" class="attribute" id="villageAttributes"> <!--refresh page when submitted-->
+            <form method="POST" action="addDeleteEntry.php" class="attribute" id="mosAttributes"> <!--refresh page when submitted-->
             <input type="hidden" id="insertQueryRequest" name="insertQueryRequest">
             Name: <input type="text" name="monsName"> <br /><br />
             Type: <input type="text" name="monsType"> <br /><br />
@@ -33,14 +42,24 @@
 
             <input type="submit" value="Add Monster" name="insertSubmit"></p>
             </form>
+        </div>
+
+        <div id="deleteAttributes">
+            <h2>Delete Monster</h2>
+            <form method="POST" action="addDeleteEntry.php" class="attribute" id="monsAttributes"> <!--refresh page when submitted-->
+            <input type="hidden" id="deleteQueryRequest" name="deleteQueryRequest">
+            Name: <input type="text" name="monsName"> <br /><br />
+
+            <input type="submit" value="Delete Monster" name="deleteSubmit"></p>
+            </form>
 
 
-        <h2>Count the Tuples in Monster</h2>
-        <form method="GET" action="addEntry.php"> <!--refresh page when submitted-->
-            <input type="hidden" id="countTupleRequest" name="countTupleRequest">
-            <input type="submit" name="countTuples" class="buttons" value="Count"></p>
-        </form>
-
+            <h2>Count the Tuples in Monster</h2>
+            <form method="GET" action="addDeleteEntry.php"> <!--refresh page when submitted-->
+                <input type="hidden" id="countTupleRequest" name="countTupleRequest">
+                <input type="submit" name="countTuples" class="buttons" value="Count"></p>
+            </form>
+        </div>
         <a href="index.php" class="backButton">back</a>
 
 
@@ -188,6 +207,39 @@
             OCICommit($db_conn);
         }
 
+        function handleDeleteRequest() {
+            global $db_conn;
+
+            $count_result = executePlainSQL("SELECT Count(*) FROM Monster");
+
+            if (($row = oci_fetch_row($count_result)) != false) {
+                $count = $row[0];
+                //echo $count;
+            }
+           
+            //Getting the values from user and insert data into the table
+            $tuple = $_POST['monsName'];
+
+            executePlainSQL("DELETE FROM Monster WHERE name = '$tuple'");
+
+            
+            $count_result = executePlainSQL("SELECT Count(*) FROM Monster");
+
+            if (($row = oci_fetch_row($count_result)) != false) {
+                $n_count = $row[0];
+            }
+
+            if ($count>$n_count) {
+                echo 'monster successfully deleted';
+                //echo $count;
+            } else {
+                echo 'Error deleting monster. Double check that the monster name matches an existing monster ';
+                //echo $count;
+            }
+
+            OCICommit($db_conn);
+        }
+
         function handleCountRequest() {
             global $db_conn;
 
@@ -206,7 +258,9 @@
                     handleSetupRequest();
                 } else if (array_key_exists('insertQueryRequest', $_POST)) {
                     handleInsertRequest();
-                } 
+                } else if (array_key_exists('deleteQueryRequest', $_POST)) {
+                    handleDeleteRequest();
+                }
                 disconnectFromDB();
             }
         }
@@ -223,7 +277,7 @@
             }
         }
 
-		if (isset($_POST['setup']) || isset($_POST['updateSubmit']) || isset($_POST['insertSubmit'])) {
+		if (isset($_POST['setup']) || isset($_POST['updateSubmit']) || isset($_POST['insertSubmit']) || isset($_POST['deleteSubmit'])) {
             handlePOSTRequest();
         } else if (isset($_GET['countTupleRequest'])) {
             handleGETRequest();
