@@ -30,19 +30,7 @@ body {
   .attributes {
     margin-bottom: 20px;
   }
-
-  .attributes {
-    display: none;
-}
-
-/* Show the PC Attributes by default */
-#pcAttributes {
-    display: block;
-}
  
-  #pcAdd {
-  display: block;
-  }
   .attributes input[type='checkbox'] {
     margin-right: 5px;
   }
