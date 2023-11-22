@@ -26,7 +26,7 @@
 
         <div id="tuplesTable"></div>
 
-        <a href="addEntry.php" id="addButton" class="buttons">add entry</a>
+        <a href="addDeleteEntry.php" id="addButton" class="buttons">add/delete monsters</a>
 
         <?php
 		// this tells the system that it's no longer just parsing html; it's now parsing PHP
