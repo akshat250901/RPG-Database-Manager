@@ -31,7 +31,7 @@
 	</form>
 </div>
 
-        <a href="index.html" class="backButton buttons">back</a>
+        <a href="index.php" class="backButton buttons">back</a>
 
         <?php
         //this tells the system that it's no longer just parsing html; it's now parsing PHP
@@ -100,25 +100,6 @@
             OCILogoff($db_conn);
         }
     
-        function handleSetupRequest() {
-            global $db_conn;
-            // Drop old data
-            $clear = file_get_contents('clear.sql');
-            $sqlRows=explode(";",$clear);
-            $lenClear = count($sqlRows);
-            for ($x = 0; $x < $lenClear; $x++) {
-                executePlainSQL($sqlRows[$x]);
-              }
-            //run create SQL file
-            $myfile = file_get_contents('setup.sql');
-            $sqlRows=explode(";",$myfile);
-            $len = count($sqlRows);
-            for ($x = 0; $x < $len; $x++) {
-                executePlainSQL($sqlRows[$x]);
-              }          
-            OCICommit($db_conn);
-
-        }
 
         function handleUpdateRequest()
     {
@@ -178,8 +159,6 @@
         if (connectToDB()) {
             if (array_key_exists('updateQueryRequest', $_POST)) {
                 handleUpdateRequest();
-            } else if (array_key_exists('setupTablesRequest', $_POST)) {
-                handleSetupRequest();
             }
 
             disconnectFromDB();
@@ -198,7 +177,7 @@
         }
     }
 
-    if (isset($_POST['setup']) || isset($_POST['updateSubmit'])) {
+    if (isset($_POST['updateSubmit'])) {
         handlePOSTRequest();
     } else if (isset($_GET['displayTuplesRequest'])) {
         handleGETRequest();

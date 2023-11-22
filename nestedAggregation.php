@@ -6,10 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="css/style.css" />
         <style><?php include 'css/style.css'; ?></style>
-        <title>Generic RPG Database: Find the lowest Monster level which defends multiple Dungeons</title>
+        <title>Generic RPG Database: Find all quest lengths that have an average reward higher than the average reward of all quests</title>
     </head>
 
     <body>
+        <h2>Generic RPG Database: Find all quest lengths that have an average reward higher than the average reward of all quests</h2>
         <div id="editAttributes">
         <h2>Press the button below!!</h2>
 	    <form method="GET" action="nestedAggregation.php">
@@ -18,7 +19,7 @@
 	</form>
 </div>
 
-        <a href="index.html" class="backButton buttons">back</a>
+        <a href="index.php" class="backButton buttons">back</a>
 
         <?php
         //this tells the system that it's no longer just parsing html; it's now parsing PHP
@@ -86,26 +87,6 @@
             debugAlertMessage("Disconnect from Database");
             OCILogoff($db_conn);
         }
-    
-        function handleSetupRequest() {
-            global $db_conn;
-            // Drop old data
-            $clear = file_get_contents('clear.sql');
-            $sqlRows=explode(";",$clear);
-            $lenClear = count($sqlRows);
-            for ($x = 0; $x < $lenClear; $x++) {
-                executePlainSQL($sqlRows[$x]);
-              }
-            //run create SQL file
-            $myfile = file_get_contents('setup.sql');
-            $sqlRows=explode(";",$myfile);
-            $len = count($sqlRows);
-            for ($x = 0; $x < $len; $x++) {
-                executePlainSQL($sqlRows[$x]);
-              }          
-            OCICommit($db_conn);
-
-        }
 
     function handleDisplayRequest()
     {
@@ -118,28 +99,15 @@
     }
 
     function printResult($result) {
-        echo "<br>The level of all quest lengths that have an average reward higher than the average reward of all quests:<br>";
+        echo "<br>All quest lengths that have an average reward higher than the average reward of all quests:<br>";
         echo "<table>";
-        echo "<tr><th>Quest Level</th></tr>";
+        echo "<tr><th>Quest Length</th></tr>";
         while ($row = OCI_Fetch_Array($result, OCI_ASSOC)) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($row["LENGTH"], ENT_QUOTES, 'UTF-8') . "</td>";
             echo "</tr>";
         }    
         echo "</table>";
-    }
-
-    // HANDLE ALL POST ROUTES
-    // A better coding practice is to have one method that reroutes your requests accordingly. It will make it easier to add/remove functionality.
-    function handlePOSTRequest()
-    {
-        if (connectToDB()) {
-            if (array_key_exists('setupTablesRequest', $_POST)) {
-                handleSetupRequest();
-            }
-
-            disconnectFromDB();
-        }
     }
 
     // HANDLE ALL GET ROUTES
@@ -154,9 +122,7 @@
         }
     }
 
-    if (isset($_POST['setup'])) {
-        handlePOSTRequest();
-    } else if (isset($_GET['displayTuplesRequest'])) {
+    if (isset($_GET['displayTuplesRequest'])) {
         handleGETRequest();
     }
         ?>
