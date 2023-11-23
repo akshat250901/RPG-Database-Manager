@@ -127,7 +127,7 @@ CREATE TABLE Interacts(
 );
 
 CREATE TABLE Quest(
-    title VARCHAR(25) PRIMARY KEY,
+    title VARCHAR(30) PRIMARY KEY,
     difficulty INTEGER NOT NULL,
     reward INTEGER NOT NULL,
     length INTEGER NOT NULL,
@@ -276,7 +276,7 @@ VALUES ('Elle', 'Mage', 10, 1200, 110, 40, 25, 15, 'Larry');
 
 INSERT
 INTO PlayableCharacter(username, class, charLevel, health, energy, attack, defense, speed, pet)
-VALUES ('Simon', 'Priest', 20, 1000, 150, 80, 50, 25, 'Tabby');
+VALUES ('Simon', 'Archer', 20, 1000, 150, 80, 50, 25, 'Tabby');
 
 INSERT
 INTO PlayableCharacter(username, class, charLevel, health, energy, attack, defense, speed, pet)
@@ -284,11 +284,31 @@ VALUES ('Alice', 'Warrior', 30, 2000, 270, 100, 80, 30, 'Edwin');
 
 INSERT
 INTO PlayableCharacter(username, class, charLevel, health, energy, attack, defense, speed, pet)
-VALUES ('Steven', 'Assassin', 40, 3000, 370, 150, 110, 35, 'Stacy');
+VALUES ('Steven', 'Assassin', 40, 3000, 370, 150, 110, 50, 'Stacy');
 
 INSERT
 INTO PlayableCharacter(username, class, charLevel, health, energy, attack, defense, speed, pet)
 VALUES ('Felix', 'Scout', 15, 350, 100, 40, 20, 30, NULL);
+
+INSERT
+INTO PlayableCharacter(username, class, charLevel, health, energy, attack, defense, speed, pet)
+VALUES ('Edward', 'Assassin', 25, 2200, 250, 95, 20, 30, NULL);
+
+INSERT
+INTO PlayableCharacter(username, class, charLevel, health, energy, attack, defense, speed, pet)
+VALUES ('Lockhart', 'Mage', 77, 3400, 850, 150, 125, 50, NULL);
+
+INSERT
+INTO PlayableCharacter(username, class, charLevel, health, energy, attack, defense, speed, pet)
+VALUES ('Keanu', 'Warrior', 50, 3000, 120, 180, 150, 35, NULL);
+
+INSERT
+INTO PlayableCharacter(username, class, charLevel, health, energy, attack, defense, speed, pet)
+VALUES ('Kate', 'Archer', 80, 3600, 150, 400, 240, 60, NULL);
+
+INSERT
+INTO PlayableCharacter(username, class, charLevel, health, energy, attack, defense, speed, pet)
+VALUES ('Jerry', 'Scout', 30, 900, 130, 90, 40, 50, NULL);
 
 INSERT
 INTO EquipmentType(type, affectedStat)
@@ -588,7 +608,51 @@ VALUES ('Gerald', 'Leader', 'Tutorial Town');
 
 INSERT
 INTO NPC(name, title, village)
-VALUES ('Archibald', 'Forest Elf', 'Aria Falls');
+VALUES ('Franky', 'Blacksmith', 'Tutorial Town');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Gordon', 'Head Chef', 'Tutorial Town');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Sarah', 'Combat Teacher', 'Tutorial Town');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Rachel', 'Shopkeeper', 'Tutorial Town');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Lily', 'Musician', 'Tutorial Town');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Lisa', 'Librarian', 'Tutorial Town');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Severus', 'Potion Master', 'Tutorial Town');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Archibald', 'Forest Elf Leader', 'Aria Falls');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Thornald', 'Forest Elf Deputy', 'Aria Falls');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Fletchald', 'Forest Elf Seeker', 'Aria Falls');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Clerald', 'Forest Elf Healer', 'Aria Falls');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Levius', 'Forest Fairy', 'Aria Falls');
 
 INSERT
 INTO NPC(name, title, village)
@@ -596,11 +660,63 @@ VALUES ('Petra', 'Farmer', 'Farms');
 
 INSERT
 INTO NPC(name, title, village)
-VALUES ('Maurelle', 'Shiphand', 'Shipton');
+VALUES ('Rob', 'Animal Keeper', 'Farms');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Harold', 'Farmer', 'Farms');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Maurelle', 'Shipwright Head', 'Shipton');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Ichiko', 'Shipwright', 'Shipton');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Reese', 'Mechanic', 'Shipton');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Pauline', 'Shipwright', 'Shipton');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Teddy', 'Shiphand', 'Shipton');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Angelica', 'Messenger', 'Shipton');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Chad', 'Apprentice', 'Shipton');
 
 INSERT
 INTO NPC(name, title, village)
 VALUES ('Sampson', 'Adventurer', 'Frostford');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Joyce', 'Ice Climber', 'Frostford');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Erin', 'Ice Climber', 'Frostford');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Wrysley', 'Leader', 'Frostford');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Vander', 'Guardian', 'Frostford');
+
+INSERT
+INTO NPC(name, title, village)
+VALUES ('Rue', 'Cook', 'Frostford');
 
 INSERT
 INTO Interacts(NPC, playableCharacter)
@@ -616,7 +732,7 @@ VALUES ('Petra', 'Steven');
 
 INSERT
 INTO Interacts(NPC, playableCharacter)
-VALUES ('Maurelle', 'Jay');
+VALUES ('Maurelle', 'Lockhart');
 
 INSERT
 INTO Interacts(NPC, playableCharacter)
@@ -624,7 +740,11 @@ VALUES ('Sampson', 'Alice');
 
 INSERT
 INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
-VALUES ('First Steps', 1, 500, 2, 1, 'Gerald');
+VALUES ('First Steps', 1, 100, 1, 1, 'Gerald');
+
+INSERT
+INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
+VALUES ('Grasping the Basics', 1, 350, 3, 2, NULL);
 
 INSERT
 INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
@@ -632,7 +752,7 @@ VALUES ('Too Many Weeds', 2, '600', 2, 5, 'Petra');
 
 INSERT
 INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
-VALUES ('Collect Clams', 4, 1500, 3, 30, 'Maurelle');
+VALUES ('Stop the Landslide!', 2, 500, 1, 10, NULL);
 
 INSERT
 INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
@@ -640,7 +760,27 @@ VALUES ('Forest Restoration', 3, 800, 3, 20, 'Archibald');
 
 INSERT
 INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
-VALUES ('Slippery Hike', 5, 2000, 4, 40, 'Sampson');
+VALUES ('Operation Anti-Invasion', 3, 1500, 5, 25, NULL);
+
+INSERT
+INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
+VALUES ('Security Checkup', 2, 700, 2, 25, NULL);
+
+INSERT
+INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
+VALUES ('Collect Clams', 4, 1500, 2, 30, 'Maurelle');
+
+INSERT
+INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
+VALUES ('A Perilous Journey', 5, 2000, 4, 40, 'Sampson');
+
+INSERT
+INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
+VALUES ('Disease Overhaul', 6, 8000, 5, 50, NULL);
+
+INSERT
+INTO Quest(title, difficulty, reward, length, minLevel, startNPC)
+VALUES ('Slippery Hike', 5, 3500, 1, 50, 'Sampson');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
@@ -648,7 +788,83 @@ VALUES ('First Steps', 'Gerald', 'Jay');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('First Steps', 'Gerald', 'Elle');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('First Steps', 'Gerald', 'Simon');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('First Steps', 'Gerald', 'Alice');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('First Steps', 'Gerald', 'Lockhart');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('First Steps', 'Gerald', 'Edward');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('First Steps', 'Gerald', 'Felix');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Too Many Weeds', 'Petra', 'Jay');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
 VALUES ('Too Many Weeds', 'Petra', 'Simon');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Too Many Weeds', 'Petra', 'Felix');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Too Many Weeds', 'Petra', 'Keanu');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Too Many Weeds', 'Petra', 'Elle');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Too Many Weeds', 'Petra', 'Kate');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Too Many Weeds', 'Petra', 'Jerry');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Too Many Weeds', 'Petra', 'Lockhart');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Forest Restoration', 'Archibald', 'Jay');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Forest Restoration', 'Archibald', 'Elle');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Forest Restoration', 'Archibald', 'Steven');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Forest Restoration', 'Archibald', 'Keanu');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Forest Restoration', 'Archibald', 'Felix');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Forest Restoration', 'Archibald', 'Lockhart');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
@@ -656,7 +872,63 @@ VALUES ('Collect Clams', 'Maurelle', 'Jay');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Forest Restoration', 'Archibald', 'Elle');
+VALUES ('Collect Clams', 'Maurelle', 'Edward');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Collect Clams', 'Maurelle', 'Steven');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Collect Clams', 'Maurelle', 'Elle');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Collect Clams', 'Maurelle', 'Kate');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Collect Clams', 'Maurelle', 'Lockhart');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Collect Clams', 'Maurelle', 'Alice');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('A Perilous Journey', 'Sampson', 'Jay');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('A Perilous Journey', 'Sampson', 'Elle');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('A Perilous Journey', 'Sampson', 'Steven');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('A Perilous Journey', 'Sampson', 'Lockhart');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('A Perilous Journey', 'Sampson', 'Alice');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Slippery Hike', 'Sampson', 'Jay');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Slippery Hike', 'Sampson', 'Elle');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Slippery Hike', 'Sampson', 'Lockhart');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Slippery Hike', 'Sampson', 'Edward');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
@@ -712,31 +984,43 @@ VALUES ('Clam', 'Water', 20, 800, 30, 10, NULL);
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
-VALUES ('Tree Sprite', 'Earth', 5, 300, 10, 2, NULL);
+VALUES ('Tree Sprite', 'Earth', 5, 300, 10, 2, 'The Bleak Tunnels');
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
-VALUES ('Mountain Goat', 'Ice', 30, 1200, 50, 30, NULL);
+VALUES ('Mountain Goat', 'Ice', 30, 1700, 50, 30, NULL);
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
-VALUES ('Clay Dummy', 'Earth', 10, 700, 20, 5, NULL);
+VALUES ('Clay Dummy', 'Earth', 20, 1200, 40, 100, 'The Raging Catacombs');
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
-VALUES ('The Bull', 'Normal', 10, 700, 20, 5, 'The Abandoned Farm');
+VALUES ('Angry Chicken', 'Normal', 3, 100, 8, 5, 'The Abandoned Farm');
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
-VALUES ('Skulls of Fear', 'Undead', 1, 50, 5, 0, 'The Raging Catacombs');
+VALUES ('Grumpy Sheep', 'Normal', 5, 250, 5, 15, 'The Abandoned Farm');
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
-VALUES ('The Prison Guard', 'Undead', 1, 50, 5, 0, 'The Eternal Cells');
+VALUES ('The Bull', 'Normal', 10, 900, 20, 10, 'The Abandoned Farm');
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
-VALUES ('The Tree of Evil', 'Earth', 25, 1000, 75, 100, 'The Bleak Tunnels');
+VALUES ('Skulls of Fear', 'Undead', 40, 2500, 125, 180, 'The Raging Catacombs');
+
+INSERT
+INTO Monster(name, type, monsLevel, health, attack, defense, defends)
+VALUES ('The Prison Guard', 'Undead', 35, 2000, 5, 0, 'The Eternal Cells');
+
+INSERT
+INTO Monster(name, type, monsLevel, health, attack, defense, defends)
+VALUES ('The Tree of Evil', 'Earth', 25, 1800, 100, 100, 'The Bleak Tunnels');
+
+INSERT
+INTO Monster(name, type, monsLevel, health, attack, defense, defends)
+VALUES ('Enchanted Leaf Swarm', 'Earth', 15, 1100, 80, 30, 'The Bleak Tunnels');
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
@@ -744,7 +1028,11 @@ VALUES ('The Frost Dragon', 'Ice', 75, 5000, 250, 400, 'Lair of the Perished Mou
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
-VALUES ('Sleepy Spider', 'Earth', 10, 700, 20, 5, NULL);
+VALUES ('Ice Witch', 'Ice', 60, 3500, 200, 200, 'Lair of the Perished Mountain');
+
+INSERT
+INTO Monster(name, type, monsLevel, health, attack, defense, defends)
+VALUES ('Sleepy Spider', 'Earth', 10, 700, 20, 5, 'The Bleak Tunnels');
 
 INSERT
 INTO Monster(name, type, monsLevel, health, attack, defense, defends)
