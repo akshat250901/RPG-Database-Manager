@@ -91,7 +91,7 @@
     function handleDisplayRequest()
     {
         global $db_conn;
-        $result = executePlainSQL("SELECT Q.length
+        $result = executePlainSQL("SELECT Q.length, AVG(Q.reward) as reward
         FROM Quest Q
         GROUP BY Q.length
         HAVING AVG(Q.reward) > (SELECT AVG(Q2.reward) FROM Quest Q2)");
@@ -101,10 +101,11 @@
     function printResult($result) {
         echo "<br>All quest lengths that have an average reward higher than the average reward of all quests:<br>";
         echo "<table>";
-        echo "<tr><th>Quest Length</th></tr>";
+        echo "<tr><th>Quest Length</th><th>Quest Reward</th></tr>";
         while ($row = OCI_Fetch_Array($result, OCI_ASSOC)) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($row["LENGTH"], ENT_QUOTES, 'UTF-8') . "</td>";
+            echo "<td>" . htmlspecialchars($row["REWARD"], ENT_QUOTES, 'UTF-8') . "</td>";
             echo "</tr>";
         }    
         echo "</table>";
