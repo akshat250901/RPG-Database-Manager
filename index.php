@@ -24,6 +24,8 @@
 
         <div id="selectAttributes"></div>
 
+        <div id="selectionDiv"></div>
+
         <div id="tuplesTable"></div>
 
         <a href="addDeleteEntry.php" id="addButton" class="buttons">add/delete monsters</a>
@@ -61,7 +63,7 @@
         }
 
         function createComponentsDropdown() {
-            echo "<form method=\"post\" action=\"index.php\" id=\"dropdown\">";
+            echo "<form method=\"get\" action=\"index.php\" id=\"dropdown\">";
             echo "<label for=\"component\">Component</label>";
             echo "<select id=\"component\" name=\"component\">";
 
@@ -81,7 +83,7 @@
         function createAttributes($component) {
             echo "<div id=\"attributesForm\">";
             echo "<h3>Filters</h3>";
-            echo "<form method=\"post\" action=\"index.php\" class=\"attributes\">";
+            echo "<form method=\"get\" action=\"index.php\" class=\"attributes\">";
             echo "<fieldset>";
             echo "<input type=\"hidden\" name=\"attribute[]\" value=\"" . $component . "\">";
 
@@ -98,6 +100,25 @@
             echo "</div>";
 
             echo "<script type=\"text/JavaScript\">document.getElementById('selectAttributes').appendChild(document.getElementById('attributesForm'));</script>";
+
+            if ($component == 'PLAYABLECHARACTER') createSelection();
+        }
+
+        function createSelection() {
+            echo "<div id=\"selection\">";
+            echo "<h3>Specify Conditions</h3>";
+            echo "<h5>Use same attribute names as displayed, use a space between each term. <br>
+                Numeric comparisons: =, <> (not equal), <, <=, >, >=. <br>
+                Alphanumeric comparisons: =; use % to indicate that any number of alphanumeric characters can go there. <br>
+                Connect conditions with OR, AND (note that AND is evaluated first unless brackets are used)</h5>";
+            echo "<h5>Example: username = %a% AND (speed > 20 OR charlevel != 50)</h5>";
+            echo "<form method=\"get\" action=\"index.php\">";
+            echo "<input type=\"text\" name=\"selectQuery\">";
+            echo "<input type=\"submit\" value=\"Apply Conditions\" name=\"selectSubmit\">";
+            echo "</form>";
+            echo "</div>";
+
+            echo "<script type=\"text/JavaScript\">document.getElementById('selectionDiv').appendChild(document.getElementById('selection'));</script>";
         }
 
         function debugAlertMessage($message) {
@@ -123,7 +144,7 @@
 
             $r = oci_execute($statement, OCI_DEFAULT);
             if (!$r) {
-                echo "<br>Cannot execute the following command: " . $cmdstr . "<br>";
+                echo "<br>Error: Cannot execute the following command: " . $cmdstr . "<br>";
                 $e = oci_error($statement); // For oci_execute errors pass the statementhandle
                 echo htmlentities($e['message']);
                 $success = False;
@@ -221,7 +242,7 @@
         }
 
         function handleSetFilters() {
-            $attributes = $_POST['attribute'];
+            $attributes = $_GET['attribute'];
             $size = count($attributes);
             $component = $attributes[0];
             // nothing selected, show all attributes
@@ -240,16 +261,101 @@
             createTuplesTable($component, $result);
         }
 
+        // assumes query is non-empty
+        function validInput($input) {
+            $input = strtolower($input);
+
+            return !str_contains($input, ");") &&
+                !str_contains($input, "drop table") &&
+                !str_contains($input, "insert into table") &&
+                !str_contains($input, "create table") &&
+                !str_contains($input, "update");
+        }
+
+        function handleSelection() {
+            global $success;
+            $selection = $_GET['selectQuery'];
+
+            if ($selection != "" && validInput($selection)) {
+                // username = %a% AND (speed > 20 OR level != 50)
+                $terms = explode(" ", $selection);
+                $query = "";
+                $i = 0;
+                $end = count($terms);
+                while ($i < $end) {
+                    // each iteration i doesn't change until the end, we find the entire condition using j then create it
+                    $j = 0;
+                    // iterate j until we reach end of a condition marked by AND/OR, or end of $terms
+                    while ($i + $j < $end && strtoupper($terms[$i + $j]) != 'AND' && strtoupper($terms[$i + $j]) != 'OR') {
+                        $j++;
+                    }
+                    // check the next j values of $terms, starting from i
+                    // j should always be 3 unless it's a string comparison where user inputs > 1 word
+                    $currQuery = "";
+                    for ($curr = 0; $curr < $j; $curr++) {
+                        $term = $terms[$i + $curr];
+                        if ($curr === 0) {
+                            // first term should be the attribute
+                            $currQuery .= $term;
+                        } else if ($curr === 1 && ($terms[$i] == 'username' || $terms[$i] == 'class' || $terms[$i] == 'pet')) {
+                            // check the rest of the condition for %'s, change = to LIKE if at least one exists
+                            for ($scan = 1; $scan < $j; $scan++) {
+                                if (str_contains($terms[$i + $scan], "%")) {
+                                    $currQuery .= " LIKE";
+                                    break;
+                                }
+                            }
+                            // if no %'s found use what user provided
+                            if ($scan === $j) $currQuery .= " " . $term;
+                        } else {
+                            // all else gets added, if anything fails it will fail when executed
+                            $currQuery .= " ";
+                            // string comparisons require quotes
+                            if ($terms[$i] == 'username' || $terms[$i] == 'class' || $terms[$i] == 'pet') {
+                                if ($curr === 2) {
+                                    $term = "'" . $term;
+                                }
+                                if ($curr === $j-1) {
+                                    $term .= "'";
+                                }
+                            }
+                            $currQuery .= $term;
+                        }
+                    }
+                    // add the connector AND/OR
+                    if ($i + $j < $end) $currQuery .= " " . $terms[$i + $j];
+
+                    // add condition to entire query
+                    if ($i === 0) {
+                        $query .= $currQuery;
+                    } else {
+                        $query .= " " . $currQuery;
+                    }
+                    
+                    // set i = i + j + 1 to continue to next condition
+                    $i = $i + $j + 1;
+                }
+                
+                $result = executePlainSQL("SELECT * FROM PLAYABLECHARACTER WHERE " . $query);
+                if ($success) {
+                    createAttributes('PLAYABLECHARACTER');
+                    createTuplesTable('PLAYABLECHARACTER', $result);
+                    return;
+                }
+                // if SQL query unsuccessful it will fall to below
+            }
+            // invalid input or SQL execution failure
+            echo "<h2 id=\"invalidMsg\">Your condition is invalid, please try again!</h2>";
+            echo "<script type=\"text/JavaScript\">document.getElementById('selectionDiv').appendChild(document.getElementById('invalidMsg'));</script>";
+            handleGetComponent('PLAYABLECHARACTER');
+        }
+
         // HANDLE ALL POST ROUTES
 	    // A better coding practice is to have one method that reroutes your requests accordingly. It will make it easier to add/remove functionality.
         function handlePOSTRequest() {
             if (connectToDB()) {
-                if (array_key_exists('component', $_POST)) {
-                    handleGetComponent($_POST['component']);
-                } else if (array_key_exists('resetTables', $_POST)) {
+                if (array_key_exists('resetTables', $_POST)) {
                     handleResetTables();
-                } else if (array_key_exists('attribute', $_POST)) {
-                    handleSetFilters();
                 }
 
                 disconnectFromDB();
@@ -258,24 +364,27 @@
 
         // HANDLE ALL GET ROUTES
 	    // A better coding practice is to have one method that reroutes your requests accordingly. It will make it easier to add/remove functionality.
-        // function handleGETRequest() {
-        //     if (connectToDB()) {
-        //         if (array_key_exists('countTuples', $_GET)) {
-        //             handleCountRequest();
-        //         }
+        function handleGETRequest() {
+            if (connectToDB()) {
+                if (array_key_exists('component', $_GET)) {
+                    handleGetComponent($_GET['component']);
+                } else if (array_key_exists('attribute', $_GET)) {
+                    handleSetFilters();
+                } else if (array_key_exists('selectQuery', $_GET)) {
+                    handleSelection();
+                }
 
-        //         disconnectFromDB();
-        //     }
-        // }
+                disconnectFromDB();
+            }
+        }
         connectToDB();
         createComponentsDropdown();
         disconnectFromDB();
-		if (isset($_POST['resetTables'])|| isset($_POST['selectComponent']) || isset($_POST['setFilters'])) {
+		if (isset($_POST['resetTables'])) {
             handlePOSTRequest();
-        } 
-        // else if (isset($_GET['countTupleRequest'])) {
-        //     handleGETRequest();
-        // }
+        } else if (isset($_GET['selectComponent']) || isset($_GET['setFilters']) || isset($_GET['selectSubmit'])) {
+            handleGETRequest();
+        }
 		?>
     </body>
 </html>

@@ -41,6 +41,14 @@ body {
   width: flex;
 }
 
+#selection input[type=text] {
+  width: 500px;
+}
+
+#selection input[type=submit] {
+  margin-left: 10px;
+}
+
 /* Show the PC Attributes by default */
 .attributes input[type='checkbox'] {
   margin-right: 5px;
