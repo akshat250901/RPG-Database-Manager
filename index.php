@@ -265,7 +265,12 @@
         function validInput($input) {
             $input = strtolower($input);
 
-            return !str_contains($input, ");") &&
+            return !str_contains($input, ";") &&
+                !str_contains($input, ")") &&
+                !str_contains($input, "(") &&
+                !str_contains($input, "\"") &&
+                !str_contains($input, "'") &&
+                !str_contains($input, "*") &&
                 !str_contains($input, "drop table") &&
                 !str_contains($input, "insert into table") &&
                 !str_contains($input, "create table") &&
