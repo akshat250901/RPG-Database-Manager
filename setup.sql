@@ -138,7 +138,7 @@ CREATE TABLE WorksOn(
     quest VARCHAR(25),
     npc VARCHAR(10),
     playableCharacter VARCHAR(10),
-    PRIMARY KEY (quest, npc, playableCharacter),
+    PRIMARY KEY (quest, playableCharacter),
     FOREIGN KEY (quest) REFERENCES Quest(title)
     ON DELETE CASCADE,
     FOREIGN KEY (npc) REFERENCES NPC(name)
@@ -701,7 +701,7 @@ VALUES ('Joyce', 'Ice Climber', 'Frostford');
 
 INSERT
 INTO NPC(name, title, village)
-VALUES ('Erin', 'Ice Climber', 'Frostford');
+VALUES ('Erin', 'Medic', 'Frostford');
 
 INSERT
 INTO NPC(name, title, village)
@@ -809,6 +809,14 @@ VALUES ('First Steps', 'Gerald', 'Felix');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Grasping the Basics', NULL, 'Jay');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Grasping the Basics', NULL, 'Elle');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
 VALUES ('Too Many Weeds', 'Petra', 'Jay');
 
 INSERT
@@ -841,6 +849,14 @@ VALUES ('Too Many Weeds', 'Petra', 'Lockhart');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Stop the Landslide!', NULL, 'Jay');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Stop the Landslide!', NULL, 'Elle');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
 VALUES ('Forest Restoration', 'Archibald', 'Jay');
 
 INSERT
@@ -862,6 +878,22 @@ VALUES ('Forest Restoration', 'Archibald', 'Felix');
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
 VALUES ('Forest Restoration', 'Archibald', 'Lockhart');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Operation Anti-Invasion', 'Fletchald', 'Jay');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Operation Anti-Invasion', 'Fletchald', 'Elle');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Security Checkup', 'Franky', 'Jay');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Security Checkup', 'Franky', 'Elle');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
@@ -913,23 +945,31 @@ VALUES ('A Perilous Journey', 'Sampson', 'Alice');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Slippery Hike', 'Sampson', 'Jay');
+VALUES ('Disease Overhaul', 'Erin', 'Jay');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Slippery Hike', 'Sampson', 'Elle');
+VALUES ('Disease Overhaul', 'Erin', 'Elle');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Slippery Hike', 'Sampson', 'Lockhart');
+VALUES ('Slippery Hike', 'Joyce', 'Jay');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Slippery Hike', 'Sampson', 'Edward');
+VALUES ('Slippery Hike', 'Joyce', 'Elle');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Slippery Hike', 'Sampson', 'Alice');
+VALUES ('Slippery Hike', 'Joyce', 'Lockhart');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Slippery Hike', 'Joyce', 'Edward');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Slippery Hike', 'Joyce', 'Alice');
 
 INSERT
 INTO PetOwner(name, owner)
