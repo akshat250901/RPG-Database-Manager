@@ -801,6 +801,10 @@ VALUES ('First Steps', 'Gerald', 'Lockhart');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('First Steps', 'Gerald', 'Kate');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
 VALUES ('First Steps', 'Gerald', 'Edward');
 
 INSERT
@@ -809,11 +813,11 @@ VALUES ('First Steps', 'Gerald', 'Felix');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Grasping the Basics', NULL, 'Jay');
+VALUES ('Grasping the Basics', NULL, 'Lockhart');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Grasping the Basics', NULL, 'Elle');
+VALUES ('Grasping the Basics', NULL, 'Kate');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
@@ -849,11 +853,11 @@ VALUES ('Too Many Weeds', 'Petra', 'Lockhart');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Stop the Landslide!', NULL, 'Jay');
+VALUES ('Stop the Landslide!', NULL, 'Lockhart');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Stop the Landslide!', NULL, 'Elle');
+VALUES ('Stop the Landslide!', NULL, 'Kate');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
@@ -881,19 +885,23 @@ VALUES ('Forest Restoration', 'Archibald', 'Lockhart');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Operation Anti-Invasion', 'Fletchald', 'Jay');
+VALUES ('Forest Restoration', 'Archibald', 'Kate');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Operation Anti-Invasion', 'Fletchald', 'Elle');
+VALUES ('Operation Anti-Invasion', 'Fletchald', 'Lockhart');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Security Checkup', 'Franky', 'Jay');
+VALUES ('Operation Anti-Invasion', 'Fletchald', 'Kate');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Security Checkup', 'Franky', 'Elle');
+VALUES ('Security Checkup', 'Franky', 'Lockhart');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Security Checkup', 'Franky', 'Kate');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
@@ -945,11 +953,15 @@ VALUES ('A Perilous Journey', 'Sampson', 'Alice');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Disease Overhaul', 'Erin', 'Jay');
+VALUES ('A Perilous Journey', 'Sampson', 'Kate');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
-VALUES ('Disease Overhaul', 'Erin', 'Elle');
+VALUES ('Disease Overhaul', 'Erin', 'Lockhart');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Disease Overhaul', 'Erin', 'Kate');
 
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
@@ -970,6 +982,10 @@ VALUES ('Slippery Hike', 'Joyce', 'Edward');
 INSERT
 INTO WorksOn(quest, NPC, playableCharacter)
 VALUES ('Slippery Hike', 'Joyce', 'Alice');
+
+INSERT
+INTO WorksOn(quest, NPC, playableCharacter)
+VALUES ('Slippery Hike', 'Joyce', 'Kate');
 
 INSERT
 INTO PetOwner(name, owner)
