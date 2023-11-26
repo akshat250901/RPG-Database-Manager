@@ -24,11 +24,9 @@
 
         <div id="selectAttributes"></div>
 
-        <div id="selectionDiv"></div>
+        <div id="moreOptions"></div>
 
         <div id="tuplesTable"></div>
-
-        <a href="addDeleteEntry.php" id="addButton" class="buttons">add/delete monsters</a>
 
         <?php
 		// this tells the system that it's no longer just parsing html; it's now parsing PHP
@@ -102,6 +100,12 @@
             echo "<script type=\"text/JavaScript\">document.getElementById('selectAttributes').appendChild(document.getElementById('attributesForm'));</script>";
 
             if ($component == 'PLAYABLECHARACTER') createSelection();
+            if ($component == 'WORKSON') createJoin();
+            if ($component == 'MONSTER') {
+                // only show add/delete monsters button when monsters is selected
+                echo "<a href=\"addDeleteEntry.php\" id=\"addButton\" class=\"buttons\">add/delete monsters</a>";
+                echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('addButton'));</script>";
+            }
         }
 
         function createSelection() {
@@ -118,7 +122,25 @@
             echo "</form>";
             echo "</div>";
 
-            echo "<script type=\"text/JavaScript\">document.getElementById('selectionDiv').appendChild(document.getElementById('selection'));</script>";
+            echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('selection'));</script>";
+        }
+
+        function createJoin() {
+            echo "<form method=\"get\" action=\"index.php\" id=\"joinDropdown\">";
+            echo "<label for=\"quest\">Show playable characters' names, levels, and classes who have worked on a specific quest:</label>";
+            echo "<select id=\"quest\" name=\"quest\">";
+
+            // get all quest titles
+            $result = executePlainSQL("SELECT title FROM Quest");
+            while ($row = oci_fetch_array($result)) {
+                echo "<option value=\"" . $row['TITLE'] . "\">" . $row['TITLE'] . "</option>";
+            }
+
+            echo "</select>";
+            echo "<input type=\"submit\" name=\"selectQuest\" value=\"Select Quest\" class=\"buttons\">";
+            echo "</form>";
+
+            echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('joinDropdown'));</script>";
         }
 
         function debugAlertMessage($message) {
@@ -241,6 +263,16 @@
             createTuplesTable($component, $result);
         }
 
+        function handleJoin($quest) {
+            $result = executePlainSQL(
+                "SELECT username, charlevel, class 
+                FROM PlayableCharacter p, WorksOn w
+                WHERE quest = '" . $quest . "' AND w.playableCharacter = p.username");
+
+            createAttributes('WORKSON');
+            createTuplesTable('WORKSON', $result);
+        }
+
         function handleSetFilters() {
             $attributes = $_GET['attribute'];
             $size = count($attributes);
@@ -351,7 +383,7 @@
             }
             // invalid input or SQL execution failure
             echo "<h2 id=\"invalidMsg\">Your condition is invalid, please try again!</h2>";
-            echo "<script type=\"text/JavaScript\">document.getElementById('selectionDiv').appendChild(document.getElementById('invalidMsg'));</script>";
+            echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('invalidMsg'));</script>";
             handleGetComponent('PLAYABLECHARACTER');
         }
 
@@ -377,6 +409,8 @@
                     handleSetFilters();
                 } else if (array_key_exists('selectQuery', $_GET)) {
                     handleSelection();
+                } else if (array_key_exists('quest', $_GET)) {
+                    handleJoin($_GET['quest']);
                 }
 
                 disconnectFromDB();
@@ -387,7 +421,7 @@
         disconnectFromDB();
 		if (isset($_POST['resetTables'])) {
             handlePOSTRequest();
-        } else if (isset($_GET['selectComponent']) || isset($_GET['setFilters']) || isset($_GET['selectSubmit'])) {
+        } else if (isset($_GET['selectComponent']) || isset($_GET['setFilters']) || isset($_GET['selectSubmit']) || isset($_GET['selectQuest'])) {
             handleGETRequest();
         }
 		?>

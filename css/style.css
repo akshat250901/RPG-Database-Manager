@@ -49,6 +49,14 @@ body {
   margin-left: 10px;
 }
 
+#joinDropdown {
+  margin-top: 15px;
+}
+
+#joinDropdown select {
+  margin: 10px;
+}
+
 /* Show the PC Attributes by default */
 .attributes input[type='checkbox'] {
   margin-right: 5px;
