@@ -42,6 +42,7 @@
             <input type="hidden" id="findDivRequest" name="findDivRequest">
             <p><input type="submit" value="Find" name="divSubmit" class="buttons"></p>
         </form>
+
         <div id="divTable"></div>
 
         <a href="addDeleteEntry.php" id="addButton" class="buttons">add entry</a>
@@ -278,7 +279,7 @@
 
         function handleDivision() {
             echo "<div id=\"divForm\">";
-            $result = executePlainSQL('SELECT DISTINCT CHARLEVEL FROM PLAYABLECHARACTER WHERE NOT EXISTS ((SELECT TITLE FROM QUEST) MINUS (SELECT W.QUEST FROM WORKSON W WHERE W.PLAYABLECHARACTER = USERNAME))');
+            $result = executePlainSQL('SELECT CHARLEVEL FROM PLAYABLECHARACTER WHERE NOT EXISTS ((SELECT TITLE FROM QUEST) MINUS (SELECT W.QUEST FROM WORKSON W WHERE W.PLAYABLECHARACTER = USERNAME))');
             print "<table border='1'>\n";
             while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
                 print "<tr>\n";
