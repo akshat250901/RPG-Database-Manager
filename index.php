@@ -33,6 +33,16 @@
             <input type="hidden" id="findAvgRequest" name="findAvgRequest">
             <p><input type="submit" value="Find" name="avgSubmit" class="buttons"></p>
         </form>
+        <div id="avgTable"></div>
+
+        <h2>Playable Character Level</h2>
+        <p>Find levels of playable characters who have worked on every quest</p>
+
+        <form method="POST" action="index.php">
+            <input type="hidden" id="findDivRequest" name="findDivRequest">
+            <p><input type="submit" value="Find" name="divSubmit" class="buttons"></p>
+        </form>
+        <div id="divTable"></div>
 
         <a href="addDeleteEntry.php" id="addButton" class="buttons">add entry</a>
 
@@ -249,6 +259,7 @@
         }
 
         function handleFindAvg() {
+            echo "<div id=\"avgForm\">";
 
             $result = executePlainSQL('SELECT class, AVG(charLevel) FROM PlayableCharacter GROUP BY class');
             print "<table border='1'>\n";
@@ -260,6 +271,24 @@
                 print "</tr>\n";
             }
             print "</table>\n";
+            echo "<script type=\"text/JavaScript\">document.getElementById('avgTable').appendChild(document.getElementById('avgForm'));</script>";
+
+
+        }
+
+        function handleDivision() {
+            echo "<div id=\"divForm\">";
+            $result = executePlainSQL('SELECT DISTINCT CHARLEVEL FROM PLAYABLECHARACTER WHERE NOT EXISTS ((SELECT TITLE FROM QUEST) MINUS (SELECT W.QUEST FROM WORKSON W WHERE W.PLAYABLECHARACTER = USERNAME))');
+            print "<table border='1'>\n";
+            while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
+                print "<tr>\n";
+                foreach ($row as $item) {
+                    print "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+                }
+                print "</tr>\n";
+            }
+            print "</table>\n";
+            echo "<script type=\"text/JavaScript\">document.getElementById('divTable').appendChild(document.getElementById('divForm'));</script>";
 
         }
 
@@ -275,6 +304,8 @@
                     handleSetFilters();
                 } else if (array_key_exists('findAvgRequest', $_POST)) {
                     handleFindAvg();
+                } else if (array_key_exists('findDivRequest', $_POST)) {
+                    handleDivision();
                 }
                 disconnectFromDB();
             }
@@ -294,7 +325,7 @@
         connectToDB();
         createComponentsDropdown();
         disconnectFromDB();
-		if (isset($_POST['resetTables'])|| isset($_POST['selectComponent']) || isset($_POST['setFilters']) || isset($_POST['avgSubmit'])) {
+		if (isset($_POST['resetTables'])|| isset($_POST['selectComponent']) || isset($_POST['setFilters']) || isset($_POST['avgSubmit']) || isset($_POST['divSubmit'])) {
             handlePOSTRequest();
         } 
         // else if (isset($_GET['countTupleRequest'])) {
