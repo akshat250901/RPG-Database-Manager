@@ -26,7 +26,15 @@
 
         <div id="tuplesTable"></div>
 
-        <a href="addDeleteEntry.php" id="addButton" class="buttons">add/delete monsters</a>
+        <h2>Class Level</h2>
+        <p>Find average level of each class</p>
+
+        <form method="POST" action="index.php">
+            <input type="hidden" id="findAvgRequest" name="findAvgRequest">
+            <p><input type="submit" value="Find" name="avgSubmit" class="buttons"></p>
+        </form>
+
+        <a href="addDeleteEntry.php" id="addButton" class="buttons">add entry</a>
 
         <?php
 		// this tells the system that it's no longer just parsing html; it's now parsing PHP
@@ -172,7 +180,7 @@
 
             // Your username is ora_(CWL_ID) and the password is a(student number). For example,
 			// ora_platypus is the username and a12345678 is the password.
-            $db_conn = oci_connect("ora_andyli02", "a65134645", "dbhost.students.cs.ubc.ca:1522/stu");
+            $db_conn = oci_connect("ora_yilian27", "a38891495", "dbhost.students.cs.ubc.ca:1522/stu");
             
             if ($db_conn) {
                 debugAlertMessage("Database is Connected");
@@ -240,6 +248,21 @@
             createTuplesTable($component, $result);
         }
 
+        function handleFindAvg() {
+
+            $result = executePlainSQL('SELECT class, AVG(charLevel) FROM PlayableCharacter GROUP BY class');
+            print "<table border='1'>\n";
+            while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
+                print "<tr>\n";
+                foreach ($row as $item) {
+                    print "    <td>" . ($item !== null ? htmlentities($item, ENT_QUOTES) : "&nbsp;") . "</td>\n";
+                }
+                print "</tr>\n";
+            }
+            print "</table>\n";
+
+        }
+
         // HANDLE ALL POST ROUTES
 	    // A better coding practice is to have one method that reroutes your requests accordingly. It will make it easier to add/remove functionality.
         function handlePOSTRequest() {
@@ -250,8 +273,9 @@
                     handleResetTables();
                 } else if (array_key_exists('attribute', $_POST)) {
                     handleSetFilters();
+                } else if (array_key_exists('findAvgRequest', $_POST)) {
+                    handleFindAvg();
                 }
-
                 disconnectFromDB();
             }
         }
@@ -270,7 +294,7 @@
         connectToDB();
         createComponentsDropdown();
         disconnectFromDB();
-		if (isset($_POST['resetTables'])|| isset($_POST['selectComponent']) || isset($_POST['setFilters'])) {
+		if (isset($_POST['resetTables'])|| isset($_POST['selectComponent']) || isset($_POST['setFilters']) || isset($_POST['avgSubmit'])) {
             handlePOSTRequest();
         } 
         // else if (isset($_GET['countTupleRequest'])) {
