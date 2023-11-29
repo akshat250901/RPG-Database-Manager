@@ -32,6 +32,8 @@
 </div>
 
         <a href="index.php" class="backButton buttons">back</a>
+        <a href="https://www.students.cs.ubc.ca/~akshatxx/project_f7g3p_k6w2b_o4k0h/aggregationHaving.php?" class="backButton buttons">aggregationHaving query</a>
+
 
         <?php
         //this tells the system that it's no longer just parsing html; it's now parsing PHP
