@@ -24,28 +24,15 @@
 
         <div id="selectAttributes"></div>
 
+        <div id="avgTable"></div>
+
+        <div id="divTable"></div>
+
         <div id="moreOptions"></div>
 
         <div id="tuplesTable"></div>
 
-        <h2>Class Level</h2>
-        <p>Find average level of each class</p>
 
-        <form method="POST" action="index.php">
-            <input type="hidden" id="findAvgRequest" name="findAvgRequest">
-            <p><input type="submit" value="Find" name="avgSubmit" class="buttons"></p>
-        </form>
-        <div id="avgTable"></div>
-
-        <h2>Playable Character Level</h2>
-        <p>Find levels of playable characters who have worked on every quest</p>
-
-        <form method="POST" action="index.php">
-            <input type="hidden" id="findDivRequest" name="findDivRequest">
-            <p><input type="submit" value="Find" name="divSubmit" class="buttons"></p>
-        </form>
-
-        <div id="divTable"></div>
 
         <a href="addDeleteEntry.php" id="addButton" class="buttons">add entry</a>
 
@@ -120,7 +107,11 @@
 
             echo "<script type=\"text/JavaScript\">document.getElementById('selectAttributes').appendChild(document.getElementById('attributesForm'));</script>";
 
-            if ($component == 'PLAYABLECHARACTER') createSelection();
+            if ($component == 'PLAYABLECHARACTER') {
+                createSelection();
+                displayAvgDiv();
+            }
+            
             if ($component == 'WORKSON') createJoin();
             if ($component == 'MONSTER') {
                 // only show add/delete monsters button when monsters is selected
@@ -314,10 +305,27 @@
             createTuplesTable($component, $result);
         }
 
+        function displayAvgDiv() {
+            echo "<h2>Class Level</h2>";
+            echo "<p>Find average level of each class</p>";
+            echo "<form method=\"POST\" action=\"index.php\">";
+            echo "<input type=\"hidden\" id=\"findAvgRequest\" name=\"findAvgRequest\">";
+            echo "<input type=\"submit\" name=\"avgSubmit\" value=\"Find\" class=\"buttons\">";
+            echo "</form>";
+
+            echo "<h2>Playable Character Level</h2>";
+            echo "<p>Find levels of playable characters who have worked on every quest</p>";
+            echo "<form method=\"POST\" action=\"index.php\">";
+            echo "<input type=\"hidden\" id=\"findDivRequest\" name=\"findDivRequest\">";
+            echo "<input type=\"submit\" name=\"divSubmit\" value=\"Find\" class=\"buttons\">";
+            echo "</form>";
+        }
+
         function handleFindAvg() {
             echo "<div id=\"avgForm\">";
 
             $result = executePlainSQL('SELECT class, AVG(charLevel) FROM PlayableCharacter GROUP BY class');
+            echo"This is the average level per class";
             print "<table border='1'>\n";
             while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
                 print "<tr>\n";
@@ -327,14 +335,17 @@
                 print "</tr>\n";
             }
             print "</table>\n";
+            echo "</div>";
             echo "<script type=\"text/JavaScript\">document.getElementById('avgTable').appendChild(document.getElementById('avgForm'));</script>";
-
+            handleGetComponent('PLAYABLECHARACTER');
 
         }
 
         function handleDivision() {
             echo "<div id=\"divForm\">";
+
             $result = executePlainSQL('SELECT CHARLEVEL FROM PLAYABLECHARACTER WHERE NOT EXISTS ((SELECT TITLE FROM QUEST) MINUS (SELECT W.QUEST FROM WORKSON W WHERE W.PLAYABLECHARACTER = USERNAME))');
+            echo "These are the levels of the playable characters that have worked on every quest";
             print "<table border='1'>\n";
             while ($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) {
                 print "<tr>\n";
@@ -344,8 +355,9 @@
                 print "</tr>\n";
             }
             print "</table>\n";
+            echo "</div>";
             echo "<script type=\"text/JavaScript\">document.getElementById('divTable').appendChild(document.getElementById('divForm'));</script>";
-
+            handleGetComponent('PLAYABLECHARACTER');
         }
 
         // assumes query is non-empty
