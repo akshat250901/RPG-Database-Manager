@@ -19,15 +19,6 @@
               </form>
         </div>
 
-        <div>
-            <h2>Setup</h2>
-            <p>This button is for setting up the tables</p>
-            <form method="POST" action="addDeleteEntry.php" >
-                <input type="hidden" id="setupTablesRequest" name="setupTablesRequest">
-                <p><input type="submit" value="Setup" name="setup" class="buttons"></p>
-            </form>
-        </div>
-
         <div id="addAttributes">
             <h2>Insert Values into Monster</h2>
             <form method="POST" action="addDeleteEntry.php" class="attribute" id="mosAttributes"> <!--refresh page when submitted-->
