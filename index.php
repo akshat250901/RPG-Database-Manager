@@ -27,7 +27,6 @@
         <div id="tuplesTable"></div>
 
         <a href="addEntry.php" id="addButton" class="buttons">add entry</a>
-        <a href="https://www.students.cs.ubc.ca/~akshatxx/project_f7g3p_k6w2b_o4k0h/nestedAggregation.php?" class="backButton buttons">nestedAggregation query</a>
 
         <?php
 		// this tells the system that it's no longer just parsing html; it's now parsing PHP
