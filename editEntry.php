@@ -112,18 +112,36 @@
         $mons_defense = $_POST['monsDefense'];
         $mons_defends = $_POST['defends'];
 
-        executePlainSQL("UPDATE Monster SET type='" . $mons_type . "' WHERE name='" . $mons_name . "'");
-        executePlainSQL("UPDATE Monster SET monsLevel='" . $mons_level . "' WHERE name='" . $mons_name . "'");
-        executePlainSQL("UPDATE Monster SET health='" . $mons_health . "' WHERE name='" . $mons_name . "'");
-        executePlainSQL("UPDATE Monster SET attack='" . $mons_attack . "' WHERE name='" . $mons_name . "'");
-        executePlainSQL("UPDATE Monster SET defense='" . $mons_defense . "' WHERE name='" . $mons_name . "'");
-        if($mons_defends != NULL) {
-            executePlainSQL("UPDATE Monster SET defends='" . $mons_defends . "' WHERE name='" . $mons_name . "'");   
-        }     
-        handleDisplayRequest();         
-        oci_commit($db_conn);
 
+        if($mons_defends != NULL) {
+            $check = executePlainSQL("SELECT COUNT(*) FROM DungeonName WHERE name='" . $mons_defends . "'");
+            if ($row = oci_fetch_array($check, OCI_BOTH)) {
+                $count = $row[0];
+                if ($count == 0) {
+                    $error = "Check your dungeon name! The inputted dungeon doesn't exist so no values got updated";
+                    echo $error;
+                } else {
+                executePlainSQL("UPDATE Monster SET type='" . $mons_type . "' WHERE name='" . $mons_name . "'");
+                executePlainSQL("UPDATE Monster SET monsLevel='" . $mons_level . "' WHERE name='" . $mons_name . "'");
+                executePlainSQL("UPDATE Monster SET health='" . $mons_health . "' WHERE name='" . $mons_name . "'");
+                executePlainSQL("UPDATE Monster SET attack='" . $mons_attack . "' WHERE name='" . $mons_name . "'");
+                executePlainSQL("UPDATE Monster SET defense='" . $mons_defense . "' WHERE name='" . $mons_name . "'");
+                executePlainSQL("UPDATE Monster SET defends='" . $mons_defends . "' WHERE name='" . $mons_name . "'");   
+                handleDisplayRequest();  
+                } 
+            }    
+        } else {
+            executePlainSQL("UPDATE Monster SET type='" . $mons_type . "' WHERE name='" . $mons_name . "'");
+                executePlainSQL("UPDATE Monster SET monsLevel='" . $mons_level . "' WHERE name='" . $mons_name . "'");
+                executePlainSQL("UPDATE Monster SET health='" . $mons_health . "' WHERE name='" . $mons_name . "'");
+                executePlainSQL("UPDATE Monster SET attack='" . $mons_attack . "' WHERE name='" . $mons_name . "'");
+                executePlainSQL("UPDATE Monster SET defense='" . $mons_defense . "' WHERE name='" . $mons_name . "'");
+                handleDisplayRequest();  
+        }   
+        oci_commit($db_conn);
     }
+
+    
 
     function handleDisplayRequest()
     {
