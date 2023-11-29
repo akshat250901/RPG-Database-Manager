@@ -116,7 +116,9 @@
             if ($component == 'MONSTER') {
                 // only show add/delete monsters button when monsters is selected
                 echo "<a href=\"addDeleteEntry.php\" id=\"addButton\" class=\"buttons\">add/delete monsters</a>";
+                echo "<a href=\"editEntry.php\" id=\"editButton\" class=\"buttons\">update monsters</a>";
                 echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('addButton'));</script>";
+                echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('editButton'));</script>";
             }
         }
 
