@@ -367,8 +367,7 @@
             $input = strtolower($input);
 
             return !str_contains($input, ";") &&
-                !str_contains($input, ")") &&
-                !str_contains($input, "(") &&
+                !str_contains($input, ");") &&
                 !str_contains($input, "\"") &&
                 !str_contains($input, "'") &&
                 !str_contains($input, "*") &&
