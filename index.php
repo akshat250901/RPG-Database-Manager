@@ -32,10 +32,6 @@
 
         <div id="tuplesTable"></div>
 
-
-
-        <a href="addDeleteEntry.php" id="addButton" class="buttons">add entry</a>
-
         <?php
 		// this tells the system that it's no longer just parsing html; it's now parsing PHP
 
@@ -100,7 +96,7 @@
                 echo "<label for=\"" . $row['COLUMN_NAME'] . "\">" . $row['COLUMN_NAME'] . "</label>";
             }
 
-            echo "<input type=\"submit\" name=\"setFilters\" value=\"Set Filters\">";
+            echo "<input type=\"submit\" name=\"setFilters\" class=\"buttons\" value=\"Set Filters\">";
             echo "</fieldset>";
             echo "</form>";
             echo "</div>";
@@ -117,8 +113,14 @@
                 // only show add/delete monsters button when monsters is selected
                 echo "<a href=\"addDeleteEntry.php\" id=\"addButton\" class=\"buttons\">add/delete monsters</a>";
                 echo "<a href=\"editEntry.php\" id=\"editButton\" class=\"buttons\">update monsters</a>";
+                echo "<a href=\"aggregationHaving.php\" id=\"aggHavButton\" class=\"backButton buttons\">monster fun fact</a>";
                 echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('addButton'));</script>";
                 echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('editButton'));</script>";
+                echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('aggHavButton'));</script>";
+            }
+            if ($component == 'QUEST') {
+                echo "<a href=\"nestedAggregation.php\" id=\"nestAggButton\" class=\"buttons\">quest fun fact</a>";
+                echo "<script type=\"text/JavaScript\">document.getElementById('moreOptions').appendChild(document.getElementById('nestAggButton'));</script>";
             }
         }
 
@@ -229,7 +231,7 @@
 
             // Your username is ora_(CWL_ID) and the password is a(student number). For example,
 			// ora_platypus is the username and a12345678 is the password.
-            $db_conn = oci_connect("ora_yilian27", "a38891495", "dbhost.students.cs.ubc.ca:1522/stu");
+            $db_conn = oci_connect("ora_andyli02", "a65134645", "dbhost.students.cs.ubc.ca:1522/stu");
             
             if ($db_conn) {
                 debugAlertMessage("Database is Connected");

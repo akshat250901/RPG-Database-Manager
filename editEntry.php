@@ -24,7 +24,7 @@
                     <input type="submit" value="Update Monster" name="updateSubmit">
             </form>
 
-        <h2>Display Tuples in Monster Table</h2>
+        <h2>Display Monsters Table</h2>
 	    <form method="GET" action="editEntry.php">
 		<input type="hidden" id="displayTuplesRequest" name="displayTuplesRequest">
 		<input type="submit" value = "Get Table"name="displayTuples"></p>
@@ -32,8 +32,6 @@
 </div>
 
         <a href="index.php" class="backButton buttons">back</a>
-        <a href="https://www.students.cs.ubc.ca/~akshatxx/project_f7g3p_k6w2b_o4k0h/aggregationHaving.php?" class="backButton buttons">aggregationHaving query</a>
-
 
         <?php
         //this tells the system that it's no longer just parsing html; it's now parsing PHP
@@ -82,7 +80,7 @@
 
             // Your username is ora_(CWL_ID) and the password is a(student number). For example,
             // ora_platypus is the username and a12345678 is the password.
-            $db_conn = OCILogon("ora_akshatxx", "a33275280", "dbhost.students.cs.ubc.ca:1522/stu");
+            $db_conn = oci_connect("ora_andyli02", "a65134645", "dbhost.students.cs.ubc.ca:1522/stu");
             
             if ($db_conn) {
                 debugAlertMessage("Database is Connected");

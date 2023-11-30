@@ -12,6 +12,10 @@ body {
   margin-bottom: 20px;
 }
 
+#moreOptions a {
+  margin-right: 10px;
+}
+
 
 #selectComponent {
   margin-bottom: 20px;
